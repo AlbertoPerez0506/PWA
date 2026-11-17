@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bio en Procesos · Etapa 1</title>
+  <meta name="description" content="Experiencia educativa interactiva para explorar los fundamentos, el funcionamiento y las aplicaciones de Bio en Procesos." />
+  <meta name="theme-color" content="#06110e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Bio en Procesos" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-screen="welcome">
+
+  <!-- ===================== SPRITE DE ICONOS ===================== -->
+  <svg class="svg-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-flask" viewBox="0 0 24 24">
+      <path d="M9 3h6M10 3v6.2L5.2 17.6A2.6 2.6 0 0 0 7.5 21.5h9a2.6 2.6 0 0 0 2.3-3.9L14 9.2V3"/>
+      <path d="M7.6 15h8.8"/>
+    </symbol>
+    <symbol id="i-target" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/>
+    </symbol>
+    <symbol id="i-book" viewBox="0 0 24 24">
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/>
+      <path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5z"/>
+    </symbol>
+    <symbol id="i-cog" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3.3"/>
+      <path d="M12 2.6v2.3M12 19.1v2.3M4.3 4.3l1.7 1.7M18 18l1.7 1.7M2.6 12h2.3M19.1 12h2.3M4.3 19.7L6 18M18 6l1.7-1.7"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+      <path d="M20 4C11 4 4 9 4 17.5c0 1 .1 1.8.3 2.5C14 20 20 13 20 4z"/>
+      <path d="M4.4 19.9C7 15 11 11 16 8.6"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19.5 12h-15M10.5 18l-6-6 6-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24">
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2.6"/>
+      <path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+      <path d="M20 12a8 8 0 1 1-2.7-6"/><path d="M20.5 3.8v4.7h-4.7"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24">
+      <path d="M12 3.2 14 9l5.8 2-5.8 2-2 5.8-2-5.8L4.2 11 10 9z"/>
+    </symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24">
+      <path d="M8 4h8v5a4 4 0 0 1-8 0z"/>
+      <path d="M8 5.5H5.5A2.5 2.5 0 0 0 8 10M16 5.5h2.5A2.5 2.5 0 0 1 16 10"/>
+      <path d="M12 13v4M9 20.5h6M10 17h4l.8 3.5H9.2z"/>
+    </symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24">
+      <path d="M12 3 3 7.5l9 4.5 9-4.5z"/><path d="m3 12.5 9 4.5 9-4.5"/><path d="m3 17 9 4.5 9-4.5"/>
+    </symbol>
+  </svg>
+
+  <div class="ambient" aria-hidden="true"></div>
+
+  <!-- ===================== BARRA SUPERIOR ===================== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 3h6M10 3v6.2L5.2 17.6A2.6 2.6 0 0 0 7.5 21.5h9a2.6 2.6 0 0 0 2.3-3.9L14 9.2V3"
+                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <strong>Bio en Procesos</strong>
+        <small>Etapa 1 · Exploración</small>
+      </span>
+    </div>
+
+    <div class="topbar__progress" id="topbar-progress">
+      <div class="meter" id="meter">
+        <span class="meter__bar" data-cap="c1"></span>
+        <span class="meter__bar" data-cap="c2"></span>
+        <span class="meter__bar" data-cap="c3"></span>
+      </div>
+      <span class="meter__label" id="meter-label">0/3</span>
+      <button class="icon-btn" data-action="reset" title="Reiniciar progreso" aria-label="Reiniciar progreso">
+        <svg class="icon"><use href="#i-refresh"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================== APLICACIÓN ===================== -->
+  <main id="app">
+
+    <!-- ---------- A. BIENVENIDA ---------- -->
+    <section class="screen is-active" data-screen="welcome">
+      <div class="hero">
+        <span class="eyebrow">
+          <svg class="icon"><use href="#i-spark"/></svg>
+          Etapa 1 · Exploración y aprendizaje
+        </span>
+
+        <h1 class="hero__title">
+          <span>BIO EN</span>
+          <span class="hero__title-accent">PROCESOS</span>
+        </h1>
+
+        <p class="hero__lead">
+          Donde la biología deja de ser teoría y se convierte en procesos
+          que transforman alimentos, medicinas y materiales.
+        </p>
+
+        <div class="hero__art">
+          <svg viewBox="0 0 320 250" aria-hidden="true">
+            <defs>
+              <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3fe6a6"/>
+                <stop offset="1" stop-color="#2bb8cf"/>
+              </linearGradient>
+            </defs>
+            <circle cx="160" cy="125" r="96" fill="url(#hg1)" opacity=".07"/>
+            <circle cx="160" cy="125" r="96" fill="none" stroke="url(#hg1)" stroke-opacity=".3"
+                    stroke-dasharray="3 8"/>
+            <circle cx="160" cy="125" r="70" fill="none" stroke="url(#hg1)" stroke-opacity=".16"/>
+            <g stroke="url(#hg1)" stroke-width="4.5" fill="none"
+               stroke-linecap="round" stroke-linejoin="round">
+              <path d="M136 76h48"/>
+              <path d="M144 76v38l-25 48a15.5 15.5 0 0 0 13.6 22.5h54.8A15.5 15.5 0 0 0 201 162l-25-48V76"/>
+              <path d="M126 152h68"/>
+            </g>
+            <circle cx="150" cy="167" r="6" fill="#3fe6a6" opacity=".9"/>
+            <circle cx="172" cy="178" r="4" fill="#2bb8cf" opacity=".85"/>
+            <circle cx="164" cy="158" r="3" fill="#a8e05f" opacity=".85"/>
+            <circle cx="160" cy="26" r="5" fill="#3fe6a6"/>
+            <circle cx="256" cy="125" r="4" fill="#2bb8cf"/>
+            <circle cx="64" cy="125" r="4" fill="#a8e05f"/>
+          </svg>
+        </div>
+
+        <p class="hero__desc">
+          Recorrerás tres cápsulas de aprendizaje con ilustraciones, conceptos clave
+          y comprobaciones breves. Avanza a tu ritmo: tu progreso se guarda automáticamente.
+        </p>
+
+        <div class="hero__actions">
+          <button class="btn btn--primary" id="welcome-cta" data-action="start">
+            Comenzar experiencia
+            <svg class="icon"><use href="#i-arrow-right"/></svg>
+          </button>
+          <button class="btn btn--ghost" id="welcome-reset" data-action="reset" hidden>
+            Reiniciar progreso
+          </button>
+        </div>
+
+        <div class="stages">
+          <div class="stage is-active">
+            <span class="stage__num">01</span>
+            <span class="stage__name">Exploración</span>
+            <span class="stage__tag">Disponible</span>
+          </div>
+          <div class="stage is-locked">
+            <span class="stage__num">02</span>
+            <span class="stage__name">Zona de desafíos</span>
+            <span class="stage__tag"><svg class="icon"><use href="#i-lock"/></svg> Próximamente</span>
+          </div>
+          <div class="stage is-locked">
+            <span class="stage__num">03</span>
+            <span class="stage__name">Evaluación final</span>
+            <span class="stage__tag"><svg class="icon"><use href="#i-lock"/></svg> Próximamente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- B. MISIÓN ---------- -->
+    <section class="screen" data-screen="mission">
+      <div class="narrow">
+        <button class="back-link" data-action="go-welcome">
+          <svg class="icon"><use href="#i-arrow-left"/></svg> Volver
+        </button>
+
+        <span class="eyebrow">
+          <svg class="icon"><use href="#i-target"/></svg> Tu misión
+        </span>
+
+        <h2 class="title-lg">Tu misión comienza aquí</h2>
+        <p class="lead">
+          Antes de enfrentarte a los desafíos, necesitarás conocer los conceptos
+          fundamentales, comprender cómo funcionan los procesos y descubrir por qué
+          son importantes. Avanzarás poco a poco, sin saturarte de información.
+        </p>
+
+        <ol class="objectives">
+          <li class="objective">
+            <span class="objective__num">1</span>
+            <div>
+              <h3>Conocer los fundamentos del tema</h3>
+              <p>Qué es Bio en Procesos, de dónde viene y por qué se estudia.</p>
+            </div>
+            <svg class="icon objective__icon"><use href="#i-book"/></svg>
+          </li>
+          <li class="objective">
+            <span class="objective__num">2</span>
+            <div>
+              <h3>Comprender sus elementos y funcionamiento</h3>
+              <p>Qué piezas intervienen, cómo se organizan y cómo avanza un proceso.</p>
+            </div>
+            <svg class="icon objective__icon"><use href="#i-cog"/></svg>
+          </li>
+          <li class="objective">
+            <span class="objective__num">3</span>
+            <div>
+              <h3>Identificar sus aplicaciones y ejemplos</h3>
+              <p>Dónde aparece en la vida diaria, la industria y la salud.</p>
+            </div>
+            <svg class="icon objective__icon"><use href="#i-leaf"/></svg>
+          </li>
+        </ol>
+
+        <button class="btn btn--primary btn--block" data-action="mission-continue">
+          Comenzar exploración
+          <svg class="icon"><use href="#i-arrow-right"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ---------- C. CENTRO DE APRENDIZAJE ---------- -->
+    <section class="screen" data-screen="hub">
+      <div class="wide">
+        <header class="section-head">
+          <span class="eyebrow">
+            <svg class="icon"><use href="#i-layers"/></svg> Centro de aprendizaje
+          </span>
+          <h2 class="title-lg">Elige tu primera cápsula</h2>
+          <p class="lead">
+            Cada cápsula es una unidad breve. Avanza por sus segmentos, revisa el
+            concepto clave y resuelve una comprobación final para marcarla como completada.
+          </p>
+        </header>
+
+        <div class="capsules" id="capsule-grid"><!-- generado por JS --></div>
+
+        <div class="finale-card" id="finale-card" hidden>
+          <div class="finale-card__glow" aria-hidden="true"></div>
+          <div class="finale-card__body">
+            <span class="finale-card__badge">
+              <svg class="icon"><use href="#i-trophy"/></svg> Etapa 1 completada
+            </span>
+            <h3>Has terminado las tres cápsulas</h3>
+            <p>Revisa tu resultado y descubre lo que viene en la siguiente etapa.</p>
+          </div>
+          <button class="btn btn--primary" data-action="go-conclusion">
+            Ver mi resultado
+            <svg class="icon"><use href="#i-arrow-right"/></svg>
+          </button>
+        </div>
+
+        <p class="note">
+          <svg class="icon"><use href="#i-spark"/></svg>
+          Contenido introductorio. El tema «Bio en Procesos» se interpreta aquí como
+          <strong>bioprocesos</strong>; todos los textos pueden editarse en
+          <code>content.js</code> sin tocar la interfaz.
+        </p>
+      </div>
+    </section>
+
+    <!-- ---------- C+D. LECTOR DE CÁPSULA ---------- -->
+    <section class="screen" data-screen="capsule">
+      <div class="reader">
+        <header class="reader__bar">
+          <button class="back-link" data-action="back-hub">
+            <svg class="icon"><use href="#i-arrow-left"/></svg> Centro de aprendizaje
+          </button>
+          <div class="reader__meta">
+            <span class="reader__number" id="cap-number">Cápsula 01</span>
+            <h2 class="reader__title" id="cap-title">Fundamentos</h2>
+          </div>
+        </header>
+
+        <div class="dots" id="segment-dots" aria-hidden="true"></div>
+
+        <div class="reader__body" id="reader-body"><!-- segmento o quiz --></div>
+
+        <div class="reader__nav">
+          <button class="btn btn--ghost" id="btn-prev" data-action="prev">
+            <svg class="icon"><use href="#i-arrow-left"/></svg> Anterior
+          </button>
+          <button class="btn btn--primary" id="btn-next" data-action="next">
+            Siguiente <svg class="icon"><use href="#i-arrow-right"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- E. CONCLUSIÓN ---------- -->
+    <section class="screen" data-screen="conclusion">
+      <div class="narrow conclusion">
+        <div class="conclusion__seal">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="54" fill="none" stroke="url(#cg)" stroke-width="2"
+                    stroke-dasharray="4 8" opacity=".6"/>
+            <circle cx="60" cy="60" r="40" fill="rgba(63,230,166,.1)" stroke="url(#cg)" stroke-width="2.5"/>
+            <path d="M42 61.5 54 73.5 79 47" fill="none" stroke="url(#cg)" stroke-width="6"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="cg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3fe6a6"/><stop offset="1" stop-color="#2bb8cf"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <span class="eyebrow">
+          <svg class="icon"><use href="#i-trophy"/></svg> Exploración completada
+        </span>
+
+        <h2 class="title-lg">¡Buen trabajo, explorador!</h2>
+        <p class="lead">
+          Has adquirido los conocimientos fundamentales de Bio en Procesos.
+          Ahora estás preparado para poner en práctica lo aprendido.
+        </p>
+
+        <div class="summary" id="summary-list"><!-- generado por JS --></div>
+
+        <div class="locked-card">
+          <div class="locked-card__top">
+            <span class="locked-card__lock"><svg class="icon"><use href="#i-lock"/></svg></span>
+            <div>
+              <h3>Próximamente: Zona de desafíos</h3>
+              <p>La Etapa 2 incluirá tres videojuegos interactivos. Aún no está disponible.</p>
+            </div>
+          </div>
+          <div class="locked-card__bar" aria-hidden="true"><span></span></div>
+        </div>
+
+        <div class="conclusion__actions">
+          <button class="btn btn--primary" data-action="back-hub">
+            Repasar las cápsulas
+            <svg class="icon"><use href="#i-book"/></svg>
+          </button>
+          <button class="btn btn--ghost" data-action="reset">
+            <svg class="icon"><use href="#i-refresh"/></svg>
+            Reiniciar progreso
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
