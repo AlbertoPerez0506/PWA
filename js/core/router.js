@@ -1,9 +1,14 @@
 // Router basado en hash
 const routes = new Map();
 let current = null;
+let cleanupFn = null;
 
 export function registerRoute(name, renderFn) {
   routes.set(name, renderFn);
+}
+
+export function setRouteCleanup(fn) {
+  cleanupFn = typeof fn === 'function' ? fn : null;
 }
 
 export function navigate(name, params = {}) {
@@ -23,9 +28,16 @@ export function getRoute() {
 }
 
 async function render(name, params) {
+  // Ejecutar cleanup de la ruta anterior (ej: clearInterval de juegos)
+  if (cleanupFn) {
+    try { cleanupFn(); } catch (e) { console.warn('[router cleanup]', e); }
+    cleanupFn = null;
+  }
   const fn = routes.get(name);
   if (!fn) {
     console.warn('Ruta no encontrada:', name);
+    // Evita pantalla en blanco
+    if (name !== 'welcome') navigate('welcome');
     return;
   }
   const main = document.getElementById('app-main');

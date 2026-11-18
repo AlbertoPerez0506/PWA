@@ -1,43 +1,96 @@
+// js/ui/modal.js
 const modalRoot = () => document.getElementById('modal-root');
 
-export function openModal({ title, bodyHTML, actions = [], onClose }) {
+let activeDialog = null;
+
+export function openModal({ title, bodyHTML = '', actions = [], onClose } = {}) {
+  closeModal();
+
   const root = modalRoot();
-  root.innerHTML = '';
-  const backdrop = document.createElement('div');
-  backdrop.className = 'modal-backdrop';
-  backdrop.innerHTML = `
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <h3 id="modal-title">${title}</h3>
-      <div class="modal-body">${bodyHTML || ''}</div>
-      <div class="modal-actions"></div>
-    </div>`;
-  const actionsEl = backdrop.querySelector('.modal-actions');
-  actions.forEach(a => {
+  if (!root) return null;
+
+  // Foco capturado localmente por modal — evita race en aperturas encadenadas.
+  const returnFocus = document.activeElement;
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'app-dialog';
+  dialog.setAttribute('aria-labelledby', 'app-dialog-title');
+  if ('closedBy' in HTMLDialogElement.prototype) {
+    dialog.setAttribute('closedby', 'any');
+  }
+
+  const titleId = 'app-dialog-title';
+  const form = document.createElement('form');
+  form.method = 'dialog';
+  form.className = 'app-dialog-form';
+
+  form.innerHTML = `
+    <header class="app-dialog-header">
+      <h2 id="${titleId}" class="app-dialog-title">${escapeHTML(title || '')}</h2>
+      <button type="button" class="app-dialog-close" aria-label="Cerrar" data-close>&times;</button>
+    </header>
+    <div class="app-dialog-body">${bodyHTML}</div>
+    <footer class="app-dialog-actions"></footer>
+  `;
+
+  const actionsEl = form.querySelector('.app-dialog-actions');
+  actions.forEach((a) => {
     const btn = document.createElement('button');
+    btn.type = 'button';
     btn.className = `btn ${a.className || 'btn-secondary'}`;
     btn.textContent = a.label;
+    if (a.value != null) btn.value = a.value;
     btn.addEventListener('click', () => {
       if (a.onClick) a.onClick();
-      if (a.close !== false) closeModal();
+      if (a.close !== false) dialog.close(a.value ?? '');
     });
     actionsEl.appendChild(btn);
   });
-  backdrop.addEventListener('click', (e) => {
-    if (e.target === backdrop) { if (onClose) onClose(); closeModal(); }
+
+  form.querySelector('[data-close]').addEventListener('click', () => dialog.close('cancel'));
+  dialog.appendChild(form);
+
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) {
+      const rect = dialog.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top && e.clientY <= rect.bottom;
+      if (!inside) dialog.close('backdrop');
+    }
   });
-  root.appendChild(backdrop);
-  const firstBtn = actionsEl.querySelector('button');
-  if (firstBtn) firstBtn.focus();
+
+  dialog.addEventListener('close', () => {
+    if (typeof onClose === 'function') onClose(dialog.returnValue);
+    dialog.remove();
+    if (activeDialog === dialog) activeDialog = null;
+    // Solo devolvemos foco si no hay otro modal abierto
+    if (!activeDialog && returnFocus && document.contains(returnFocus)) {
+      returnFocus.focus({ preventScroll: true });
+    }
+  });
+
+  root.appendChild(dialog);
+  activeDialog = dialog;
+  dialog.showModal();
+
+  const primary = actionsEl.querySelector('button');
+  (primary || form.querySelector('[data-close]')).focus({ preventScroll: true });
+
+  return dialog;
 }
 
 export function closeModal() {
-  modalRoot().innerHTML = '';
+  if (activeDialog && activeDialog.open) activeDialog.close('external');
+  activeDialog = null;
 }
 
-export function toast(msg, ms = 2200) {
+export function toast(msg, ms = 2400) {
   const root = document.getElementById('toast-root');
+  if (!root) return;
   const el = document.createElement('div');
   el.className = 'toast';
+  el.setAttribute('role', 'status');
   el.textContent = msg;
   root.appendChild(el);
   requestAnimationFrame(() => el.classList.add('show'));
@@ -47,13 +100,19 @@ export function toast(msg, ms = 2200) {
   }, ms);
 }
 
-export function confirmDialog(title, message, onConfirm) {
+export function confirmDialog(title, message, onConfirm, { confirmLabel = 'Confirmar', cancelLabel = 'Cancelar' } = {}) {
   openModal({
     title,
-    bodyHTML: `<p>${message}</p>`,
+    bodyHTML: `<p>${escapeHTML(message)}</p>`,
     actions: [
-      { label: 'Cancelar', className: 'btn-secondary' },
-      { label: 'Confirmar', className: 'btn-primary', onClick: onConfirm }
+      { label: cancelLabel, className: 'btn-secondary' },
+      { label: confirmLabel, className: 'btn-primary', onClick: onConfirm }
     ]
   });
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
 }

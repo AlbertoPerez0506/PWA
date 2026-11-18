@@ -12,8 +12,13 @@ export function logoSVG(size = 36) {
   return LOGO_SVG.replace('<svg', `<svg width="${size}" height="${size}"`);
 }
 
+/** Badge grande de estrella para pantallas de victoria (sin emoji ★). */
+export function starBadgeHTML() {
+  return STAR_SVG.replace('class="star"', 'class="star"').replace('<svg', '<svg viewBox="0 0 24 24"');
+}
+
 export function confetti(count = 40) {
-  const colors = ['#F3BD4F', '#239B72', '#38B8AF', '#65C995', '#F5F7F3'];
+  const colors = ['#F2B872', '#255941', '#7BA685', '#A8B5AD', '#F2ECE4'];
   for (let i = 0; i < count; i++) {
     const p = document.createElement('div');
     p.className = 'confetti-piece';

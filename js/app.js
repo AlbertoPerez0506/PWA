@@ -1,5 +1,5 @@
-import { loadState, getState, updateSettings } from './core/state.js';
-import { startRouter, registerRoute } from './core/router.js';
+import { loadState, getState, getStars, subscribe } from './core/state.js';
+import { startRouter, registerRoute, getRoute, navigate } from './core/router.js';
 import { setAudioEnabled, setVolume } from './ui/audio.js';
 import { renderWelcome } from './features/welcome.js';
 import { renderMap } from './features/map.js';
@@ -10,30 +10,24 @@ import { renderPuzzle } from './games/bioprocess-puzzle.js';
 import { renderExam } from './exam/exam.js';
 import { renderProgress } from './features/progress.js';
 import { renderSettings } from './features/settings.js';
-import { registerSW, promptInstall } from './pwa/install.js';
-import { starsHTML, logoSVG } from './ui/components.js';
-import { getStars } from './core/state.js';
-import { navigate, getRoute } from './core/router.js';
+import { registerSW, promptInstall, isInstalled } from './pwa/install.js';
+import { logoSVG } from './ui/components.js';
+import { ICONS, STAR_SVG } from './ui/assets.js';
 import { toast } from './ui/modal.js';
 
 async function init() {
   await loadState();
   const state = getState();
 
-  // Aplicar settings
   setAudioEnabled(state.settings.sound);
   setVolume(state.settings.volume);
   if (state.settings.reduceMotion) {
     document.documentElement.style.setProperty('--transition-med', '0ms');
   }
 
-  // Header
   renderHeader();
-
-  // Nav inferior
   renderBottomNav();
 
-  // Rutas
   registerRoute('welcome', renderWelcome);
   registerRoute('map', renderMap);
   registerRoute('lesson', renderLessons);
@@ -44,28 +38,38 @@ async function init() {
   registerRoute('progress', renderProgress);
   registerRoute('settings', renderSettings);
 
-  // Arrancar router
   startRouter();
-
   registerSW();
 
-  // Suscribirse a cambios de estado para actualizar header
   window.addEventListener('hashchange', renderHeader);
+  subscribe(renderHeader); // actualiza estrellas del header al instante
+
+  // Si la app se instala desde otra pestaña/ventana, ocultar botón Instalar
+  document.addEventListener('pwa-installed', () => {
+    const btn = document.querySelector('#install-btn');
+    if (btn) btn.style.display = 'none';
+  });
 }
 
 function renderHeader() {
   const header = document.getElementById('app-header');
+  if (!header) return;
   const stars = getStars();
-  const state = getState();
   const route = getRoute();
   const isWelcome = route.name === 'welcome' || route.name === '';
+
   header.innerHTML = `
-    <button class="btn btn-ghost" id="hdr-logo" aria-label="Ir al mapa" style="padding:0;min-height:auto">
+    <button class="btn btn-ghost hdr-logo-btn" id="hdr-logo" aria-label="Ir al mapa">
       ${logoSVG(36)}
     </button>
-    <div style="display:flex;align-items:center;gap:var(--space-3)">
-      ${!isWelcome ? `<div style="display:flex;align-items:center;gap:6px;font-weight:800;color:var(--color-gold)">★ ${stars}/3</div>` : ''}
-      <button class="btn btn-ghost" id="hdr-settings" aria-label="Configuración" style="min-height:40px;padding:0 var(--space-2)">⚙</button>
+    <div class="hdr-right">
+      ${!isWelcome ? `<div class="hdr-stars" aria-label="${stars} de 3 estrellas">
+        ${STAR_SVG.replace('class="star"', 'class="star earned"')}
+        <span>${stars}/3</span>
+      </div>` : ''}
+      <button class="btn btn-ghost hdr-icon-btn" id="hdr-settings" aria-label="Configuración">
+        ${ICONS.gear}
+      </button>
     </div>
   `;
   header.querySelector('#hdr-logo').addEventListener('click', () => navigate('map'));
@@ -74,20 +78,52 @@ function renderHeader() {
 
 function renderBottomNav() {
   const nav = document.getElementById('app-nav');
+  if (!nav) return;
+
   nav.innerHTML = `
-    <button class="btn btn-ghost" data-route="map" style="flex-direction:column;font-size:var(--fs-xs);min-height:56px">🗺<br>Mapa</button>
-    <button class="btn btn-ghost" data-route="progress" style="flex-direction:column;font-size:var(--fs-xs);min-height:56px">📊<br>Progreso</button>
-    <button class="btn btn-ghost" id="install-btn" style="flex-direction:column;font-size:var(--fs-xs);min-height:56px">⬇<br>Instalar</button>
+    <button class="btn btn-ghost nav-btn" data-route="map" aria-label="Mapa">
+      <span class="nav-icon">${ICONS.map}</span><span class="nav-label">Mapa</span>
+    </button>
+    <button class="btn btn-ghost nav-btn" data-route="progress" aria-label="Progreso">
+      <span class="nav-icon">${ICONS.chart}</span><span class="nav-label">Progreso</span>
+    </button>
+    <button class="btn btn-ghost nav-btn" id="install-btn" aria-label="Instalar aplicación">
+      <span class="nav-icon">${ICONS.download}</span><span class="nav-label">Instalar</span>
+    </button>
   `;
+
   nav.querySelectorAll('[data-route]').forEach(btn => {
     btn.addEventListener('click', () => navigate(btn.dataset.route));
   });
-  nav.querySelector('#install-btn').addEventListener('click', () => {
-    if (!promptInstall()) toast('Usa el menú del navegador → "Instalar aplicación"');
+
+  const installBtn = nav.querySelector('#install-btn');
+
+  // Si ya está instalada, ocultar de inmediato
+  if (isInstalled()) {
+    installBtn.style.display = 'none';
+  }
+
+  installBtn.addEventListener('click', async () => {
+    const result = await promptInstall();
+
+    if (result.ok && result.accepted) {
+      toast('Aplicación instalada');
+      installBtn.style.display = 'none';
+    } else if (result.ok && !result.accepted) {
+      toast('Instalación cancelada');
+    } else if (result.reason === 'installed') {
+      toast('La aplicación ya está instalada');
+      installBtn.style.display = 'none';
+    } else if (result.reason === 'unavailable') {
+      toast('Usa el menú del navegador para instalar la aplicación.');
+    } else {
+      toast('No se pudo iniciar la instalación');
+    }
   });
 }
 
 init().catch(err => {
   console.error(err);
-  document.getElementById('app-main').innerHTML = `<p style="padding:2rem;color:#E05252">Error al iniciar la aplicación: ${err.message}</p>`;
+  const main = document.getElementById('app-main');
+  if (main) main.innerHTML = `<p style="padding:2rem;color:#C5443B">Error al iniciar la aplicación: ${err.message}</p>`;
 });

@@ -1,25 +1,41 @@
 :root {
-  --color-primary: #239B72;
-  --color-secondary: #38B8AF;
-  --color-accent: #65C995;
+  /* ============ Paleta BIOISLAS 2.0 ============ */
+  --color-primary: #255941;        /* acción principal */
+  --color-deep:    #1A402E;        /* texto / superficies profundas */
+  --color-secondary: #7BA685;      /* naturaleza, decoración */
+  --color-accent:  #F2B872;        /* recompensas, estrellas */
+  --color-background: #F2ECE4;     /* fondo cálido */
+
+  /* Derivados */
+  --color-primary-hover: #1E4635;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #F7F3ED;
+  --color-line: #D8D0C4;
+  --color-line-strong: #B9AE9F;
+  --color-water-top: #E4EBE7;
+  --color-water-bottom: #D2DEDA;
+
+  /* Alias legacy (compatibilidad) */
   --color-dark: #102329;
-  --color-light: #F5F7F3;
-  --color-gold: #F3BD4F;
-  --color-error: #E05252;
-  --color-success: #239B72;
-  --color-muted: #6B7A80;
+  --color-light: var(--color-background);
+  --color-gold: var(--color-accent);
+  --color-error: #C5443B;
+  --color-success: var(--color-primary);
+  --color-muted: #5A6A62;
 
-  --bg-body: var(--color-dark);
-  --bg-surface: var(--color-light);
-  --bg-card: #FFFFFF;
-  --bg-elevated: #1B3138;
-  --text-primary: var(--color-light);
-  --text-inverse: var(--color-dark);
-  --text-muted-dark: #B8C5CA;
-  --text-muted-light: #55656B;
-  --border-subtle: rgba(255,255,255,0.12);
-  --border-light: #DCE2DD;
+  /* ============ Semánticos — TEMA CLARO ============ */
+  --bg-body: var(--color-background);
+  --bg-surface: var(--color-surface);
+  --bg-card: var(--color-surface);
+  --bg-elevated: var(--color-surface);
+  --text-primary: var(--color-deep);
+  --text-inverse: var(--color-deep);
+  --text-muted-dark: #5A6A62;
+  --text-muted-light: #8A9A92;
+  --border-subtle: var(--color-line);
+  --border-light: var(--color-line);
 
+  /* ============ Tipografía ============ */
   --font-primary: 'Plus Jakarta Sans', 'Manrope', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   --fs-xs: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
@@ -30,6 +46,7 @@
   --fs-2xl: clamp(1.7rem, 1.4rem + 1.2vw, 2.2rem);
   --fs-3xl: clamp(2.1rem, 1.6rem + 2vw, 3rem);
 
+  /* ============ Espaciado ============ */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -38,29 +55,43 @@
   --space-6: 2rem;
   --space-8: 3rem;
 
+  /* ============ Radios ============ */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-xl: 28px;
   --radius-pill: 999px;
 
-  --shadow-sm: 0 2px 6px rgba(0,0,0,0.12);
-  --shadow-md: 0 8px 24px rgba(0,0,0,0.18);
-  --shadow-lg: 0 18px 48px rgba(0,0,0,0.28);
-  --shadow-gold: 0 0 24px rgba(243,189,79,0.6);
+  /* ============ Sombras ============ */
+  --shadow-sm: 0 2px 6px rgba(26,64,46,0.08);
+  --shadow-md: 0 8px 24px rgba(26,64,46,0.12);
+  --shadow-lg: 0 18px 48px rgba(26,64,46,0.22);
+  --shadow-gold: 0 0 24px rgba(242,184,114,0.55);
 
+  /* ============ Interacción ============ */
   --touch: 44px;
   --transition-fast: 150ms ease;
   --transition-med: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
 
+  /* ============ Safe areas ============ */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
 
+  /* ============ Layout ============ */
   --header-h: 64px;
   --maxw: 1280px;
+
+    /* ============ Islas del mapa ============ */
+  --island-grass-light: #A8D4B8;
+  --island-grass-mid:   #7BA685;
+  --island-grass-dark:  #4F7A5E;
+  --island-sand-light:  #F2DDB3;
+  --island-sand-dark:   #C9AE7A;
+  --island-shadow:      rgba(26,64,46,0.42);
+  --island-glow:        rgba(255,255,255,0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {

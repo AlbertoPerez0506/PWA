@@ -1,21 +1,27 @@
 import { BIOPROCESS_STEPS } from '../data/bioprocess.js';
-import { getState, awardStar, markIslandCompleted } from '../core/state.js';
+import { awardStar, markIslandCompleted, getStars } from '../core/state.js';
 import { dbPut } from '../core/database.js';
 import { navigate } from '../core/router.js';
 import { playCorrect, playWrong, playStar, playSelect, playVictory } from '../ui/audio.js';
-import { confetti } from '../ui/components.js';
+import { confetti, starBadgeHTML } from '../ui/components.js';
 import { toast } from '../ui/modal.js';
 
 let game = null;
 
-export function renderPuzzle(main) {
-  startGame(main);
+export function renderPuzzle(main) { startGame(main); }
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function startGame(main) {
-  const shuffled = [...BIOPROCESS_STEPS].sort(() => Math.random() - 0.5);
   game = {
-    pool: shuffled,
+    pool: shuffle(BIOPROCESS_STEPS),
     slots: Array(BIOPROCESS_STEPS.length).fill(null),
     selected: null,
     startTime: Date.now(),
@@ -28,8 +34,8 @@ function renderUI(main) {
   main.innerHTML = `
     <div class="puzzle-screen">
       <h1>Isla 04 — Arma el bioproceso</h1>
-      <p style="color:var(--text-muted-dark);margin-bottom:var(--space-3)">
-        Ordena las 7 etapas de un bioproceso típico. Toca una pieza y luego un espacio, o arrástrala.
+      <p style="color:var(--color-muted);margin-bottom:var(--space-3)">
+        Ordena las 7 etapas de un bioproceso típico. Toca una pieza y luego un espacio.
       </p>
       <div class="puzzle-columns">
         <div>
@@ -47,7 +53,6 @@ function renderUI(main) {
   const pool = main.querySelector('#pool');
   const slots = main.querySelector('#slots');
 
-  // Render piezas disponibles
   game.pool.forEach(step => {
     const btn = document.createElement('button');
     btn.className = 'puzzle-piece';
@@ -55,7 +60,7 @@ function renderUI(main) {
     if (game.selected === step.id) btn.classList.add('selected');
     btn.innerHTML = `<strong>${step.title}</strong>`;
     btn.addEventListener('click', () => {
-      if (game.pool.find(p => p.id === step.id) == null) return;
+      if (!game.pool.find(p => p.id === step.id)) return;
       game.selected = game.selected === step.id ? null : step.id;
       playSelect();
       renderUI(main);
@@ -63,7 +68,6 @@ function renderUI(main) {
     pool.appendChild(btn);
   });
 
-  // Render slots
   game.slots.forEach((step, idx) => {
     const slot = document.createElement('button');
     slot.className = 'puzzle-slot' + (step ? ' filled' : '');
@@ -77,7 +81,6 @@ function renderUI(main) {
 
 async function onSlotClick(main, idx) {
   if (game.selected == null) {
-    // Si hay algo en el slot, devolverlo al pool
     if (game.slots[idx]) {
       const step = game.slots[idx];
       game.pool.push(step);
@@ -88,27 +91,21 @@ async function onSlotClick(main, idx) {
     return;
   }
 
-  // Colocar pieza seleccionada
   const stepId = game.selected;
   const pieceIndex = game.pool.findIndex(p => p.id === stepId);
   if (pieceIndex === -1) return;
   const piece = game.pool[pieceIndex];
 
-  // Si el slot ya estaba ocupado, devolverlo al pool
-  if (game.slots[idx]) {
-    game.pool.push(game.slots[idx]);
-  }
+  if (game.slots[idx]) game.pool.push(game.slots[idx]);
   game.pool.splice(pieceIndex, 1);
   game.slots[idx] = piece;
   game.selected = null;
   game.attempts++;
 
-  // Verificar
   if (piece.id === idx + 1) {
     playCorrect();
   } else {
     playWrong();
-    // Devuelve después de un momento
     setTimeout(() => {
       game.slots[idx] = null;
       game.pool.push(piece);
@@ -119,7 +116,6 @@ async function onSlotClick(main, idx) {
   }
   renderUI(main);
 
-  // Verificar completo
   const complete = game.slots.every((s, i) => s && s.id === i + 1);
   if (complete) finishGame(main);
 }
@@ -130,30 +126,29 @@ async function finishGame(main) {
   const elapsed = Math.floor((Date.now() - game.startTime) / 1000);
   const sessionId = 'puzzle-' + Date.now();
   await dbPut('gameSessions', {
-    id: sessionId,
-    game: 'puzzle',
+    id: sessionId, game: 'puzzle',
     startedAt: new Date(game.startTime).toISOString(),
     finishedAt: new Date().toISOString(),
-    attempts: game.attempts,
-    timeSeconds: elapsed,
-    completed: true
+    attempts: game.attempts, timeSeconds: elapsed, completed: true
   });
 
   const awarded = await awardStar('star-puzzle', 'puzzle', sessionId);
   if (awarded) {
     playStar();
     await markIslandCompleted(4);
-    toast('¡Tercera estrella obtenida!');
   }
+  const totalStars = getStars();
 
   main.innerHTML = `
     <div class="victory-screen">
-      <div class="victory-badge">★</div>
+      <div class="victory-badge">${starBadgeHTML()}</div>
       <h1>¡Bioproceso completado!</h1>
       <p style="font-size:var(--fs-lg)">Tiempo: ${elapsed}s · Intentos: ${game.attempts}</p>
-      ${awarded ? '<p style="color:var(--color-gold);font-weight:800">¡Has obtenido la tercera estrella!</p>' : '<p style="color:var(--text-muted-dark)">Ya habías obtenido esta estrella.</p>'}
-      <p style="color:var(--text-muted-dark);font-size:var(--fs-sm);margin-top:var(--space-3)">
-        Recuerda: la secuencia exacta puede variar según el organismo y el producto, pero estas son las etapas generales.
+      ${awarded
+        ? `<p style="color:var(--color-primary);font-weight:800">¡Has obtenido una estrella! (${totalStars}/3)</p>`
+        : `<p style="color:var(--color-muted)">Ya habías obtenido esta estrella.</p>`}
+      <p style="color:var(--color-muted);font-size:var(--fs-sm);margin-top:var(--space-3)">
+        La secuencia exacta puede variar según el organismo y el producto, pero estas son las etapas generales.
       </p>
       <div style="display:flex;gap:var(--space-3);justify-content:center;margin-top:var(--space-4);flex-wrap:wrap">
         <button class="btn btn-primary" id="btn-map">Volver al mapa</button>

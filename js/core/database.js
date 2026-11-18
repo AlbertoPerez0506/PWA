@@ -10,18 +10,9 @@ export function openDB() {
     const req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onupgradeneeded = (e) => {
       const db = e.target.result;
-      if (!db.objectStoreNames.contains('userProgress'))
-        db.createObjectStore('userProgress', { keyPath: 'id' });
-      if (!db.objectStoreNames.contains('lessonProgress'))
-        db.createObjectStore('lessonProgress', { keyPath: 'id' });
-      if (!db.objectStoreNames.contains('gameSessions'))
-        db.createObjectStore('gameSessions', { keyPath: 'id' });
-      if (!db.objectStoreNames.contains('achievements'))
-        db.createObjectStore('achievements', { keyPath: 'id' });
-      if (!db.objectStoreNames.contains('examAttempts'))
-        db.createObjectStore('examAttempts', { keyPath: 'id' });
-      if (!db.objectStoreNames.contains('settings'))
-        db.createObjectStore('settings', { keyPath: 'id' });
+      ['userProgress','lessonProgress','gameSessions','achievements','examAttempts','settings'].forEach((name) => {
+        if (!db.objectStoreNames.contains(name)) db.createObjectStore(name, { keyPath: 'id' });
+      });
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
@@ -29,59 +20,28 @@ export function openDB() {
   return dbPromise;
 }
 
-async function tx(storeName, mode) {
+async function withStore(storeName, mode, work) {
   const db = await openDB();
-  return db.transaction(storeName, mode).objectStore(storeName);
-}
-
-export async function dbPut(store, value) {
-  return new Promise(async (resolve, reject) => {
-    const os = await tx(store, 'readwrite');
-    const req = os.put(value);
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
+  const os = db.transaction(storeName, mode).objectStore(storeName);
+  return new Promise((resolve, reject) => {
+    try {
+      const req = work(os);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    } catch (err) { reject(err); }
   });
 }
 
-export async function dbGet(store, key) {
-  return new Promise(async (resolve, reject) => {
-    const os = await tx(store, 'readonly');
-    const req = os.get(key);
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-
-export async function dbGetAll(store) {
-  return new Promise(async (resolve, reject) => {
-    const os = await tx(store, 'readonly');
-    const req = os.getAll();
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-
-export async function dbDelete(store, key) {
-  return new Promise(async (resolve, reject) => {
-    const os = await tx(store, 'readwrite');
-    const req = os.delete(key);
-    req.onsuccess = () => resolve();
-    req.onerror = () => reject(req.error);
-  });
-}
-
-export async function dbClear(store) {
-  return new Promise(async (resolve, reject) => {
-    const os = await tx(store, 'readwrite');
-    const req = os.clear();
-    req.onsuccess = () => resolve();
-    req.onerror = () => reject(req.error);
-  });
-}
+export function dbPut(store, value)     { return withStore(store, 'readwrite', (os) => os.put(value)); }
+export function dbGet(store, key)       { return withStore(store, 'readonly',  (os) => os.get(key)); }
+export function dbGetAll(store)         { return withStore(store, 'readonly',  (os) => os.getAll()); }
+export function dbDelete(store, key)    { return withStore(store, 'readwrite', (os) => os.delete(key)); }
+export function dbClear(store)          { return withStore(store, 'readwrite', (os) => os.clear()); }
 
 export async function resetAll() {
-  const stores = ['userProgress','lessonProgress','gameSessions','achievements','examAttempts','settings'];
-  for (const s of stores) await dbClear(s);
+  for (const s of ['userProgress','lessonProgress','gameSessions','achievements','examAttempts','settings']) {
+    await dbClear(s);
+  }
 }
 
 export async function exportAll() {
