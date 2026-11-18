@@ -1,0 +1,77 @@
+:root {
+  --color-primary: #239B72;
+  --color-secondary: #38B8AF;
+  --color-accent: #65C995;
+  --color-dark: #102329;
+  --color-light: #F5F7F3;
+  --color-gold: #F3BD4F;
+  --color-error: #E05252;
+  --color-success: #239B72;
+  --color-muted: #6B7A80;
+
+  --bg-body: var(--color-dark);
+  --bg-surface: var(--color-light);
+  --bg-card: #FFFFFF;
+  --bg-elevated: #1B3138;
+  --text-primary: var(--color-light);
+  --text-inverse: var(--color-dark);
+  --text-muted-dark: #B8C5CA;
+  --text-muted-light: #55656B;
+  --border-subtle: rgba(255,255,255,0.12);
+  --border-light: #DCE2DD;
+
+  --font-primary: 'Plus Jakarta Sans', 'Manrope', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --fs-xs: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --fs-sm: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --fs-base: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  --fs-lg: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  --fs-xl: clamp(1.35rem, 1.2rem + 0.7vw, 1.7rem);
+  --fs-2xl: clamp(1.7rem, 1.4rem + 1.2vw, 2.2rem);
+  --fs-3xl: clamp(2.1rem, 1.6rem + 2vw, 3rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.12);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.18);
+  --shadow-lg: 0 18px 48px rgba(0,0,0,0.28);
+  --shadow-gold: 0 0 24px rgba(243,189,79,0.6);
+
+  --touch: 44px;
+  --transition-fast: 150ms ease;
+  --transition-med: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  --header-h: 64px;
+  --maxw: 1280px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-med: 0ms;
+    --transition-slow: 0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
