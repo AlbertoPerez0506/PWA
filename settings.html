@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#236B45" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <title>Ajustes · BIOISLAS</title>
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="/index.html" class="sidebar__brand">
+      <img src="/assets/images/logo.svg" alt="" class="sidebar__logo" />
+      <span class="sidebar__name">BIOISLAS</span>
+    </a>
+    <nav class="sidebar__nav" aria-label="Principal">
+      <a href="/index.html" class="nav-link" data-nav-link><i data-lucide="home"></i> Inicio</a>
+      <a href="/games.html" class="nav-link" data-nav-link><i data-lucide="gamepad-2"></i> Juegos</a>
+      <a href="/exam.html" class="nav-link" data-nav-link><i data-lucide="clipboard-check"></i> Examen</a>
+      <a href="/manual.html" class="nav-link" data-nav-link><i data-lucide="book-open"></i> Manual</a>
+      <a href="/settings.html" class="nav-link" data-nav-link><i data-lucide="settings"></i> Ajustes</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header"><h1>Ajustes</h1></div>
+
+    <section class="section">
+      <h2 class="section__title">Preferencias</h2>
+
+      <div class="setting-row">
+        <div class="setting-row__info">
+          <p class="setting-row__title">Notificaciones</p>
+          <p class="setting-row__desc" id="notif-status">Cargando…</p>
+        </div>
+        <button class="toggle" id="notif-toggle" aria-checked="false" aria-label="Activar notificaciones"></button>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-row__info">
+          <p class="setting-row__title">Sonidos</p>
+          <p class="setting-row__desc" id="sound-status">Cargando…</p>
+        </div>
+        <button class="toggle" id="sound-toggle" aria-checked="true" aria-label="Activar sonidos"></button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section__title">Aplicación</h2>
+
+      <div class="setting-row">
+        <div class="setting-row__info">
+          <p class="setting-row__title">Instalar BIOISLAS</p>
+          <p class="setting-row__desc">Añádela a tu pantalla de inicio para acceso rápido.</p>
+        </div>
+        <button class="btn btn--secondary" id="install-app-btn"><i data-lucide="download"></i> Instalar</button>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-row__info">
+          <p class="setting-row__title">Borrar todos los datos</p>
+          <p class="setting-row__desc">Elimina tu progreso, respuestas y preferencias.</p>
+        </div>
+        <button class="btn btn--danger" id="clear-data-btn"><i data-lucide="trash-2"></i> Borrar</button>
+      </div>
+    </section>
+
+    <section class="section text-center">
+      <p class="text-muted">BIOISLAS · Versión 1.0</p>
+      <p class="text-muted">Explora, aprende y protege.</p>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación móvil">
+    <a href="/index.html" class="bottom-nav__link" data-nav-link><i data-lucide="home"></i><span>Inicio</span></a>
+    <a href="/games.html" class="bottom-nav__link" data-nav-link><i data-lucide="gamepad-2"></i><span>Juegos</span></a>
+    <a href="/exam.html" class="bottom-nav__link" data-nav-link><i data-lucide="clipboard-check"></i><span>Examen</span></a>
+    <a href="/manual.html" class="bottom-nav__link" data-nav-link><i data-lucide="book-open"></i><span>Manual</span></a>
+  </nav>
+
+  <div id="install-banner" class="install-banner">
+    <div class="install-banner__text"><strong>Instala BIOISLAS</strong><br>Añádela a tu pantalla de inicio.</div>
+    <button id="install-btn" class="btn btn--primary">Instalar</button>
+  </div>
+
+  <script type="module">
+    import { initSettingsPage } from '/js/pages.js';
+    import { renderIcons } from '/js/icons.js';
+    initSettingsPage().then(() => renderIcons());
+  </script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

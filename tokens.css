@@ -1,0 +1,45 @@
+:root {
+  /* Colores principales */
+  --bio-forest: #236B45;
+  --bio-leaf: #63BD50;
+  --bio-leaf-soft: #E8F5DF;
+  --bio-water: #18758A;
+  --bio-water-soft: #E3F2F4;
+  --bio-sun: #F2C94C;
+  --bio-coral: #E98261;
+  --bio-earth: #8B684B;
+
+  /* Texto y superficies */
+  --bio-ink: #26352C;
+  --bio-muted: #69776E;
+  --bio-line: #DCE6DD;
+  --bio-canvas: #F7FAF5;
+  --bio-surface: #FFFFFF;
+
+  /* Estados */
+  --bio-success: #267344;
+  --bio-warning: #A46116;
+  --bio-danger: #B83E3E;
+
+  /* Tipografía */
+  --font-display: "Nunito", system-ui, sans-serif;
+  --font-body: "Nunito Sans", system-ui, sans-serif;
+
+  /* Radios y espaciado */
+  --radius-control: 14px;
+  --radius-card: 18px;
+  --radius-panel: 24px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Layout */
+  --content-max: 1200px;
+  --sidebar-width: 240px;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#236B45" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <title>Examen final · BIOISLAS</title>
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="/index.html" class="sidebar__brand">
+      <img src="/assets/images/logo.svg" alt="" class="sidebar__logo" />
+      <span class="sidebar__name">BIOISLAS</span>
+    </a>
+    <nav class="sidebar__nav" aria-label="Principal">
+      <a href="/index.html" class="nav-link" data-nav-link><i data-lucide="home"></i> Inicio</a>
+      <a href="/games.html" class="nav-link" data-nav-link><i data-lucide="gamepad-2"></i> Juegos</a>
+      <a href="/exam.html" class="nav-link" data-nav-link><i data-lucide="clipboard-check"></i> Examen</a>
+      <a href="/manual.html" class="nav-link" data-nav-link><i data-lucide="book-open"></i> Manual</a>
+      <a href="/settings.html" class="nav-link" data-nav-link><i data-lucide="settings"></i> Ajustes</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <a href="/index.html" class="btn btn--ghost btn--icon" aria-label="Volver"><i data-lucide="arrow-left"></i></a>
+      <h1>Examen final</h1>
+    </div>
+
+    <section id="intro-screen" class="intro-card">
+      <div id="intro-icon" class="intro-icon"></div>
+      <h2 class="intro-title" id="intro-title"></h2>
+      <p class="intro-desc" id="intro-desc"></p>
+      <ul class="intro-objectives" id="intro-objectives"></ul>
+      <button id="start-btn" class="btn btn--primary btn--block">Iniciar examen <i data-lucide="arrow-right"></i></button>
+    </section>
+
+    <section id="game-screen" hidden>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="progress-text" id="progress-text"></p>
+      </div>
+      <article class="question-card">
+        <div class="question-icon" id="question-icon"></div>
+        <h2 class="question-prompt" id="question-prompt"></h2>
+        <p class="question-context" id="question-context"></p>
+      </article>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" hidden></div>
+      <button id="next-btn" class="btn btn--primary btn--block" disabled>Continuar</button>
+    </section>
+
+    <section id="results-screen" hidden>
+      <div class="results-card">
+        <div class="results-icon"><i data-lucide="award"></i></div>
+        <h2 class="results-title">¡Examen completado!</h2>
+        <p class="results-score" id="results-score"></p>
+        <p class="results-message" id="results-message"></p>
+        <div class="results-actions">
+          <a href="/results.html" class="btn btn--primary"><i data-lucide="award"></i> Ver historial</a>
+          <a href="/index.html" class="btn btn--secondary">Volver al inicio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación móvil">
+    <a href="/index.html" class="bottom-nav__link" data-nav-link><i data-lucide="home"></i><span>Inicio</span></a>
+    <a href="/games.html" class="bottom-nav__link" data-nav-link><i data-lucide="gamepad-2"></i><span>Juegos</span></a>
+    <a href="/exam.html" class="bottom-nav__link" data-nav-link><i data-lucide="clipboard-check"></i><span>Examen</span></a>
+    <a href="/manual.html" class="bottom-nav__link" data-nav-link><i data-lucide="book-open"></i><span>Manual</span></a>
+  </nav>
+
+  <script type="module">
+    import { QuizGame } from '/js/quiz-game.js';
+    import { examQuestions } from '/js/data.js';
+    import { renderIcons } from '/js/icons.js';
+
+    const game = new QuizGame({
+      questions: examQuestions,
+      gameName: 'Examen final',
+      mode: 'exam',
+      showFeedback: false,
+      introIcon: 'clipboard-check',
+      introTitle: 'Examen final',
+      introDesc: 'Comprueba lo que has aprendido con 10 preguntas de opción múltiple.',
+      introObjectives: [
+        'Responderás 10 preguntas de opción múltiple.',
+        'No verás la respuesta correcta hasta finalizar.',
+        'Al terminar obtendrás tu puntuación y porcentaje de aciertos.'
+      ]
+    });
+    game.mount();
+    renderIcons();
+  </script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

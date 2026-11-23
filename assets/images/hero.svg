@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 360" role="img" aria-label="Isla con biodiversidad">
+  <ellipse cx="200" cy="320" rx="180" ry="20" fill="#236B45" opacity="0.15"/>
+  <path d="M40 300 Q60 240 130 230 Q200 220 270 230 Q340 240 360 300 Z" fill="#8B684B"/>
+  <path d="M60 280 Q80 240 140 235 Q200 228 260 235 Q320 240 340 280 Z" fill="#63BD50"/>
+  <ellipse cx="200" cy="270" rx="80" ry="14" fill="#18758A"/>
+  <path d="M130 235 L120 180 L150 235 Z" fill="#63BD50"/>
+  <circle cx="120" cy="175" r="22" fill="#63BD50"/>
+  <circle cx="105" cy="180" r="14" fill="#63BD50"/>
+  <circle cx="135" cy="182" r="12" fill="#63BD50"/>
+  <rect x="117" y="200" width="6" height="35" fill="#8B684B"/>
+  <path d="M270 235 L262 195 L288 235 Z" fill="#63BD50"/>
+  <circle cx="260" cy="192" r="18" fill="#63BD50"/>
+  <circle cx="278" cy="196" r="12" fill="#63BD50"/>
+  <rect x="258" y="212" width="5" height="23" fill="#8B684B"/>
+  <path d="M170 90 Q180 80 200 80 Q220 80 230 90 Q225 105 200 105 Q175 105 170 90 Z" fill="#F2C94C"/>
+  <path d="M180 95 Q190 88 200 90" stroke="#A46116" stroke-width="2" fill="none"/>
+  <circle cx="185" cy="92" r="2" fill="#26352C"/>
+  <circle cx="215" cy="92" r="2" fill="#26352C"/>
+  <path d="M195 100 L205 100 L200 103 Z" fill="#E98261"/>
+  <path d="M310 130 Q320 120 340 120 Q360 120 370 130 Q365 145 340 145 Q315 145 310 130 Z" fill="#F2C94C"/>
+  <circle cx="325" cy="132" r="2" fill="#26352C"/>
+  <circle cx="355" cy="132" r="2" fill="#26352C"/>
+  <path d="M335 138 L345 138 L340 141 Z" fill="#E98261"/>
+  <circle cx="80" cy="80" r="20" fill="#F2C94C" opacity="0.5"/>
+  <circle cx="160" cy="150" r="2" fill="#26352C"/>
+  <circle cx="240" cy="160" r="2" fill="#26352C"/>
+  <circle cx="200" cy="140" r="2" fill="#26352C"/>
+</svg>

@@ -1,144 +1,79 @@
-// sw.js
-const SW_VERSION = 'v1.0.0';
-const CACHE_SHELL  = `bioislas-shell-${SW_VERSION}`;
-const CACHE_ASSETS = `bioislas-assets-${SW_VERSION}`;
-const CACHE_HTML   = `bioislas-html-${SW_VERSION}`;
-const CURRENT_CACHES = [CACHE_SHELL, CACHE_ASSETS, CACHE_HTML];
+// Service Worker de BIOISLAS
+// Estrategia: cache-first para estáticos, network-first para navegación.
+// Soporta notificaciones locales.
 
-const SHELL_URLS = [
-  './',
-  './index.html',
-  './manifest.webmanifest'
+const CACHE_NAME = 'bioislas-v1';
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/games.html',
+  '/game-biodiversity.html',
+  '/game-ecosystem.html',
+  '/game-conservation.html',
+  '/exam.html',
+  '/results.html',
+  '/manual.html',
+  '/settings.html',
+  '/manifest.webmanifest',
+  '/css/styles.css',
+  '/js/app.js',
+  '/js/icons.js',
+  '/js/db.js',
+  '/js/audio.js',
+  '/js/notifications.js',
+  '/js/data.js',
+  '/js/quiz-game.js',
+  '/js/pages.js',
+  '/assets/images/icon.svg',
+  '/assets/images/logo.svg',
+  '/assets/images/hero.svg'
 ];
 
-/* ---------- INSTALL ---------- */
-// Precarga el shell, pero NO activa la nueva versión automáticamente.
-// La activación se dispara desde el cliente con postMessage({ type: 'SKIP_WAITING' })
-// (o el string 'SKIP_WAITING'), típicamente desde un banner "Actualizar".
 self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_SHELL);
-    // addAll aborta si UNA URL falla → usar add() por URL con allSettled
-    await Promise.allSettled(SHELL_URLS.map((url) => cache.add(url)));
-  })());
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+  );
+  self.skipWaiting();
 });
 
-/* ---------- ACTIVATE ---------- */
-// Borra cachés de versiones anteriores y toma control de clientes abiertos.
 self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(
-      keys
-        .filter((k) => !CURRENT_CACHES.includes(k))
-        .map((k) => caches.delete(k))
-    );
-    await self.clients.claim();
-  })());
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
 });
 
-/* ---------- MESSAGE ---------- */
-// Único punto donde se permite skipWaiting: bajo demanda explícita del cliente.
-self.addEventListener('message', (event) => {
-  const data = event.data;
-  const wantsSkip =
-    data === 'SKIP_WAITING' ||
-    (data && data.type === 'SKIP_WAITING');
-
-  if (wantsSkip) {
-    event.waitUntil(self.skipWaiting());
-  }
-});
-
-/* ---------- FETCH ---------- */
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
-  const url = new URL(req.url);
-  // No cachear peticiones cross-origin: dejamos que el navegador las gestione.
-  if (url.origin !== self.location.origin) return;
-
-  // 1) Navegación (HTML) → network-first con fallback al shell
-  if (req.mode === 'navigate') {
-    event.respondWith(networkFirstNavigation(req));
-    return;
-  }
-
-  // 2) Estáticos versionados por Vite → stale-while-revalidate
-  if (url.pathname.includes('/assets/')) {
-    event.respondWith(staleWhileRevalidate(req, CACHE_ASSETS));
-    return;
-  }
-
-  // 3) Resto (css/js sueltos, svg, ico, manifest) → network-first
-  event.respondWith(networkFirst(req, CACHE_SHELL));
+  event.respondWith(
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
+      return fetch(req)
+        .then((res) => {
+          if (res.ok && (res.type === 'basic' || res.type === 'cors')) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(req, clone));
+          }
+          return res;
+        })
+        .catch(() => {
+          if (req.mode === 'navigate') return caches.match('/index.html');
+        });
+    })
+  );
 });
 
-/* ---------- ESTRATEGIAS ---------- */
-
-async function networkFirstNavigation(req) {
-  const cache = await caches.open(CACHE_HTML);
-  try {
-    const fresh = await fetch(req);
-    if (fresh && fresh.ok) {
-      // Await: garantiza la escritura antes de devolver (latencia despreciable).
-      await cache.put(req, fresh.clone());
-    }
-    return fresh;
-  } catch (_) {
-    const cached = await cache.match(req);
-    if (cached) return cached;
-
-    const shell = await caches.open(CACHE_SHELL);
-    const fallback =
-      (await shell.match('./index.html')) ||
-      (await shell.match('./'));
-
-    if (fallback) return fallback;
-
-    return new Response(
-      '<!doctype html><meta charset="utf-8"><title>Sin conexión</title>' +
-      '<h1>Sin conexión</h1><p>Vuelve a intentarlo cuando recuperes la red.</p>',
-      { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
-    );
-  }
-}
-
-async function networkFirst(req, cacheName) {
-  const cache = await caches.open(cacheName);
-  try {
-    const fresh = await fetch(req);
-    if (fresh && fresh.ok) {
-      await cache.put(req, fresh.clone());
-    }
-    return fresh;
-  } catch (_) {
-    const cached = await cache.match(req);
-    if (cached) return cached;
-    // Fallback explícito: evita errores de red opacos en respondWith.
-    return new Response('', { status: 504, statusText: 'Gateway Timeout' });
-  }
-}
-
-async function staleWhileRevalidate(req, cacheName) {
-  const cache = await caches.open(cacheName);
-  const cached = await cache.match(req);
-
-  // Revalidación en segundo plano (no bloquea la respuesta).
-  const network = fetch(req)
-    .then((res) => {
-      if (res && res.ok) {
-        // No esperamos: SWR debe responder rápido.
-        cache.put(req, res.clone());
-      }
-      return res;
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = event.notification.data?.url || '/';
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      for (const c of list) if (c.url === url && 'focus' in c) return c.focus();
+      if (clients.openWindow) return clients.openWindow(url);
     })
-    .catch(() => null);
-
-  if (cached) return cached;
-
-  const fresh = await network;
-  if (fresh) return fresh;
-  return new Response('', { status: 504, statusText: 'Gateway Timeout' });
-}
+  );
+});
