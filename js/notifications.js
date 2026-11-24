@@ -26,8 +26,8 @@ export async function showLocal(title, body, url = '/') {
   const reg = await navigator.serviceWorker.ready;
   reg.showNotification(title, {
     body,
-    icon: '/assets/images/icon.svg',
-    badge: '/assets/images/icon.svg',
+    icon: '/assets/images/icon.jpg',
+    badge: '/assets/images/icon.jpg',
     data: { url }
   });
 }

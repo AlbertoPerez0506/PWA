@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#236B45" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg" />
+  <link rel="icon" type="image/jpeg" href="/assets/images/icon.jpg" />
   <link rel="stylesheet" href="/css/styles.css" />
   <title>Exploradores de la biodiversidad · BIOISLAS</title>
 </head>
 <body>
   <aside class="sidebar">
     <a href="/index.html" class="sidebar__brand">
-      <img src="/assets/images/logo.svg" alt="" class="sidebar__logo" />
+      <img src="/assets/images/icon.jpg" alt="" class="sidebar__logo" />
       <span class="sidebar__name">BIOISLAS</span>
     </a>
     <nav class="sidebar__nav" aria-label="Principal">
@@ -30,7 +30,6 @@
       <h1>Exploradores de la biodiversidad</h1>
     </div>
 
-    <!-- Pantalla de introducción -->
     <section id="intro-screen" class="intro-card">
       <div id="intro-icon" class="intro-icon"></div>
       <h2 class="intro-title" id="intro-title"></h2>
@@ -39,7 +38,6 @@
       <button id="start-btn" class="btn btn--primary btn--block">Comenzar <i data-lucide="arrow-right"></i></button>
     </section>
 
-    <!-- Pantalla de juego -->
     <section id="game-screen" hidden>
       <div class="progress">
         <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -47,19 +45,16 @@
         </div>
         <p class="progress-text" id="progress-text"></p>
       </div>
-
       <article class="question-card">
         <div class="question-icon" id="question-icon"></div>
         <h2 class="question-prompt" id="question-prompt"></h2>
         <p class="question-context" id="question-context"></p>
       </article>
-
       <div class="options" id="options"></div>
       <div class="feedback" id="feedback" hidden></div>
       <button id="next-btn" class="btn btn--primary btn--block" disabled>Continuar</button>
     </section>
 
-    <!-- Pantalla de resultados -->
     <section id="results-screen" hidden>
       <div class="results-card">
         <div class="results-icon"><i data-lucide="award"></i></div>

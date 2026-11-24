@@ -1,8 +1,7 @@
 // Service Worker de BIOISLAS
-// Estrategia: cache-first para estáticos, network-first para navegación.
-// Soporta notificaciones locales.
+// Cache-first para recursos estáticos, network-first con fallback para navegación.
 
-const CACHE_NAME = 'bioislas-v1';
+const CACHE_NAME = 'bioislas-v1.1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -23,10 +22,9 @@ const STATIC_ASSETS = [
   '/js/notifications.js',
   '/js/data.js',
   '/js/quiz-game.js',
-  '/js/pages.js',
-  '/assets/images/icon.svg',
-  '/assets/images/logo.svg',
-  '/assets/images/hero.svg'
+  '/js/results-page.js',
+  '/js/settings-page.js',
+  '/assets/images/icon.jpg'
 ];
 
 self.addEventListener('install', (event) => {
