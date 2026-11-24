@@ -1,33 +1,20 @@
 {
-  "name": "BIOISLAS — Explora, aprende y protege",
+  "id": "/",
+  "name": "BIOISLAS — Explora, aprende y descubre",
   "short_name": "BIOISLAS",
-  "description": "Aplicación educativa interactiva sobre biodiversidad, ecosistemas y conservación.",
-  "start_url": "/",
+  "description": "Recorrido educativo interactivo por la biotecnología y los bioprocesos.",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#F7FAF5",
-  "theme_color": "#236B45",
-  "lang": "es",
-  "categories": ["education", "games", "kids"],
+  "background_color": "#151d27",
+  "theme_color": "#151d27",
+  "lang": "es-MX",
+  "categories": ["education", "games"],
   "icons": [
-    {
-      "src": "/assets/images/icon.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/images/icon.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/images/icon.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "maskable"
-    }
+    { "src": "/assets/images/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/images/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/images/app-icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

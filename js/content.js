@@ -1,0 +1,32 @@
+export const modules = [
+  {
+    id:'module-1',number:'01',title:'Descubriendo los bioprocesos',subtitle:'Los fundamentos de la biotecnología',estimated:'5–7 min',
+    intro:'Antes de entrar al laboratorio, necesitas conocer qué es la biotecnología y por qué los organismos vivos pueden convertirse en aliados para crear productos útiles.',
+    sections:[
+      {title:'¿Qué es la biotecnología?',paragraphs:['La biotecnología consiste en aprovechar sistemas biológicos —como células, microorganismos y enzimas— para desarrollar productos o servicios. Puede participar en la elaboración de alimentos, medicamentos, soluciones agrícolas y tecnologías ambientales.','Un ejemplo cotidiano es la fermentación utilizada para elaborar yogur, queso o pan. En estos casos, microorganismos o sus enzimas transforman componentes de la materia prima y producen cambios útiles.']},
+      {title:'¿Qué es un bioproceso?',paragraphs:['Un bioproceso es la aplicación organizada y controlada de recursos biológicos para transformar materias primas y obtener un producto de interés. La biotecnología es el campo amplio de aprovechamiento de sistemas biológicos; el bioproceso describe una secuencia de operaciones y condiciones que permiten realizar una transformación.','Un bioproceso necesita seleccionar el sistema biológico, preparar las condiciones de trabajo, realizar la transformación y recuperar y revisar el producto obtenido.']},
+      {title:'Los protagonistas biológicos',bullets:['Microorganismos: bacterias, levaduras y otros seres microscópicos capaces de realizar transformaciones.','Células: unidades vivas que pueden crecer, producir sustancias o llevar a cabo funciones específicas.','Enzimas: moléculas biológicas que aceleran reacciones químicas.','Materias primas o sustratos: materiales que se transforman o que sirven de fuente de nutrientes y energía.']},
+      {title:'Ideas que debes recordar',bullets:['La biotecnología es el campo que aprovecha sistemas biológicos.','El bioproceso organiza etapas controladas para obtener un producto.','Los microorganismos, células y enzimas pueden funcionar como herramientas biológicas.','La materia prima aporta los componentes que serán transformados.']}
+    ],checkpoint:'Explica con tus propias palabras la diferencia entre biotecnología y bioproceso.'
+  },
+  {
+    id:'module-2',number:'02',title:'¿Cómo funciona un bioproceso?',subtitle:'De la selección biológica al producto',estimated:'6–8 min',
+    intro:'Un bioproceso no ocurre de manera improvisada. Se organiza en etapas que preparan el sistema, permiten la transformación y recuperan el producto de interés.',
+    sections:[
+      {title:'Preparar antes de producir',bullets:['Selección del sistema biológico: elegir el microorganismo, célula o enzima adecuado.','Preparación del medio de cultivo: disponer nutrientes, agua y condiciones que favorezcan el proceso.','Preparación del inóculo: preparar la cantidad de microorganismos o células que iniciará el cultivo.','Esterilización: reducir o eliminar microorganismos no deseados del equipo y los materiales, según el proceso.']},
+      {title:'La transformación biológica',paragraphs:['La inoculación consiste en introducir el inóculo preparado en el medio de cultivo. Después se controla el cultivo o la fermentación para mantener condiciones apropiadas, como temperatura, pH, disponibilidad de oxígeno y agitación cuando corresponda.','Durante esta etapa, el sistema biológico utiliza nutrientes y realiza las transformaciones que permiten obtener el producto o compuesto deseado.']},
+      {title:'Recuperar y acondicionar el producto',bullets:['Recuperación: obtener la corriente o material que contiene el producto.','Separación: retirar células, sólidos u otros componentes que no forman parte del producto deseado.','Purificación: eliminar impurezas para alcanzar las características requeridas.','Control de calidad: revisar que el producto cumpla los criterios establecidos.']},
+      {title:'Upstream y downstream',paragraphs:['Upstream reúne las operaciones previas y de producción biológica: selección del sistema, preparación del medio y del inóculo, esterilización, inoculación y cultivo.','Downstream comprende la recuperación, separación, purificación y acondicionamiento del producto. Ambos bloques son necesarios para obtener un resultado reproducible y de calidad.']}
+    ],checkpoint:'Ordena mentalmente las etapas desde la preparación del sistema hasta el control de calidad.'
+  },
+  {
+    id:'module-3',number:'03',title:'Herramientas y aplicaciones',subtitle:'El laboratorio y su impacto en la vida diaria',estimated:'5–7 min',
+    intro:'Los bioprocesos necesitan instrumentos para medir, preparar, cultivar, separar y controlar. Sus resultados se aplican en sectores muy distintos.',
+    sections:[
+      {title:'Instrumentos de laboratorio',bullets:['Biorreactor: recipiente diseñado para realizar y controlar un proceso biológico.','Microscopio: instrumento que permite observar estructuras demasiado pequeñas para verse a simple vista.','Pipeta: herramienta para medir y transferir volúmenes pequeños de líquidos.','Autoclave: equipo que utiliza vapor a presión para esterilizar materiales compatibles.','Centrífuga: equipo que separa componentes mediante fuerza centrífuga.','Medidor de pH: instrumento que determina qué tan ácida o básica es una solución.']},
+      {title:'Aplicaciones alimentarias y farmacéuticas',paragraphs:['En alimentos, la fermentación se aprovecha para elaborar productos como yogur, queso y otros alimentos fermentados. En el sector farmacéutico, sistemas biológicos pueden utilizarse para fabricar sustancias de interés médico, como la insulina recombinante.']},
+      {title:'Aplicaciones agrícolas y ambientales',paragraphs:['En agricultura, la biotecnología permite desarrollar biofertilizantes que aprovechan microorganismos beneficiosos. En el ámbito energético se investigan y producen biocombustibles mediante materia orgánica. En el sector ambiental, los procesos biológicos pueden contribuir al tratamiento de aguas residuales y a la reducción de contaminantes.']},
+      {title:'Conecta el instrumento con su función',bullets:['Biorreactor: cultivar y controlar el proceso.','Autoclave: esterilizar.','Centrífuga: separar componentes.','Pipeta: transferir volúmenes.','Microscopio: observar.','Medidor de pH: medir acidez o basicidad.']}
+    ],checkpoint:'Relaciona cada instrumento con la operación que realiza y menciona una aplicación de la biotecnología.'
+  }
+];
