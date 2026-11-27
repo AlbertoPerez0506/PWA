@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bioislas-rewild-v5.1.0';
+const CACHE_NAME = 'bioislas-rewild-v5.1.1';
 
 const APP_SHELL = [
   '/', '/index.html', '/modules.html', '/game-memorama.html', '/game-terms.html', '/game-sequence.html',
@@ -10,7 +10,7 @@ const APP_SHELL = [
   '/js/exam.js', '/js/results.js', '/js/settings.js', '/js/notifications.js', '/js/experience.js', '/js/theme.js',
   '/assets/images/app-icon.svg', '/assets/images/app-icon-maskable.svg',
   '/assets/images/app-icon-192.png', '/assets/images/app-icon-512.png', '/assets/images/app-icon-maskable-512.png',
-  '/assets/images/mascot.svg', '/assets/images/tucan-guide.jpg',
+  '/assets/images/mascot.svg',
   '/assets/images/island-01.svg', '/assets/images/island-02.svg', '/assets/images/island-03.svg',
   '/assets/images/island-04.svg', '/assets/images/island-05.svg',
   '/assets/images/instruments/bioreactor.svg', '/assets/images/instruments/microscope.svg',
