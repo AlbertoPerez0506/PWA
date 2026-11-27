@@ -54,21 +54,21 @@ function installIconLinks() {
   const desktopIcon = document.createElement('link');
   desktopIcon.rel = 'icon';
   desktopIcon.type = 'image/png';
-  desktopIcon.sizes = '512x512';
+  desktopIcon.sizes = '1024x1024';
   desktopIcon.media = '(pointer: fine)';
   desktopIcon.href = '/assets/icon/icon_radio.png';
 
   const mobileIcon = document.createElement('link');
   mobileIcon.rel = 'icon';
   mobileIcon.type = 'image/png';
-  mobileIcon.sizes = '512x512';
+  mobileIcon.sizes = '346x346';
   mobileIcon.media = '(pointer: coarse)';
   mobileIcon.href = '/assets/icon/icon_redondo.png';
 
   const fallbackIcon = document.createElement('link');
   fallbackIcon.rel = 'icon';
   fallbackIcon.type = 'image/png';
-  fallbackIcon.sizes = '512x512';
+  fallbackIcon.sizes = '1024x1024';
   fallbackIcon.href = '/assets/icon/icon_radio.png';
 
   const appleIcon = document.createElement('link');
