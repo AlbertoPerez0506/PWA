@@ -8,8 +8,8 @@
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#151d27",
-  "theme_color": "#151d27",
+  "background_color": "#fffdf8",
+  "theme_color": "#fffdf8",
   "lang": "es-MX",
   "categories": ["education", "games"],
   "icons": [

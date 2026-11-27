@@ -1,3 +1,4 @@
+import './experience.js';
 import { modules } from './content.js';
 import { getJourney, completeModule } from './db.js';
 const $=s=>document.querySelector(s);

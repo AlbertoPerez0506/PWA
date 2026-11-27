@@ -1,3 +1,4 @@
+import './experience.js';
 import {getPreference,savePreference,clearJourneyData} from './db.js';
 import {initAudio,setAudioEnabled} from './audio.js';
 import {notificationsSupported,isNotificationsEnabled,enableNotifications,disableNotifications} from './notifications.js';

@@ -1,3 +1,4 @@
+import './experience.js';
 import {requireGameAccess} from './game-guard.js';
 import {processStages} from './data.js';
 import {completeGame} from './db.js';

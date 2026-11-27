@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fffdf8">
+  <meta name="description" content="BIOISLAS: aprende biotecnología y bioprocesos mediante módulos, retos interactivos y un examen final.">
+  <meta name="color-scheme" content="light">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/app-icon.svg">
+  <link rel="apple-touch-icon" href="/assets/images/app-icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/experience.css">
+  <title>BIOISLAS — Explora, aprende y descubre</title>
+</head>
+<body class="map-body">
+  <div class="splash-screen" id="splash-screen" aria-label="Cargando BIOISLAS">
+    <div class="splash-mascot-wrap">
+      <img src="/assets/images/tucan-guide.jpg" alt="Lumi, el tucán guía de BIOISLAS" class="splash-mascot">
+      <span class="splash-orbit splash-orbit-one" aria-hidden="true"></span>
+      <span class="splash-orbit splash-orbit-two" aria-hidden="true"></span>
+    </div>
+    <div class="splash-wordmark">BIO<span>ISLAS</span></div>
+    <p class="splash-caption">Despertando el archipiélago...</p>
+    <div class="splash-loader" role="presentation"><span></span></div>
+    <small>Una aventura de ciencia y descubrimiento</small>
+  </div>
+
+  <section class="welcome-screen onboarding-screen is-hidden" id="welcome-screen" aria-labelledby="onboarding-title">
+    <div class="onboarding-shell">
+      <div class="onboarding-visual">
+        <div class="onboarding-image-frame">
+          <img src="/assets/images/tucan-guide.jpg" alt="Lumi, un tucán tecnológico que te acompañará durante la introducción" class="onboarding-mascot">
+          <span class="onboarding-glow" aria-hidden="true"></span>
+        </div>
+        <div class="mascot-speech" aria-live="polite">
+          <span class="speech-name">Lumi · tu guía</span>
+          <p id="mascot-speech">¡Hola! Me alegra que estés aquí. Vamos a explorar.</p>
+        </div>
+        <div class="onboarding-orbit orbit-a" aria-hidden="true"></div>
+        <div class="onboarding-orbit orbit-b" aria-hidden="true"></div>
+      </div>
+
+      <div class="onboarding-content">
+        <div class="onboarding-kicker"><span class="onboarding-kicker-dot"></span> PRIMERA VISITA <span id="onboarding-step-label">01 / 03</span></div>
+        <div class="onboarding-copy-wrap" key="onboarding-step">
+          <h1 id="onboarding-title">Un archipiélago de descubrimientos</h1>
+          <p id="onboarding-copy">Conoce los fundamentos de la biotecnología y descubre cómo los sistemas biológicos pueden transformar nuestro mundo.</p>
+          <div class="onboarding-benefits" id="onboarding-benefits">
+            <span><i></i> Aprende a tu ritmo</span>
+            <span><i></i> Avanza isla por isla</span>
+          </div>
+        </div>
+        <div class="onboarding-footer">
+          <div class="onboarding-progress-dots" id="onboarding-dots" aria-label="Paso 1 de 3">
+            <span class="is-active"></span><span></span><span></span>
+          </div>
+          <div class="onboarding-actions">
+            <button class="button button-quiet" type="button" id="onboarding-skip">Omitir</button>
+            <button class="button button-primary button-large" type="button" id="onboarding-next">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <small class="onboarding-note">Tu avance se guarda en este dispositivo.</small>
+      </div>
+    </div>
+  </section>
+
+  <div class="app-shell is-hidden" id="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/index.html" aria-label="BIOISLAS, mapa principal">
+        <img src="/assets/images/app-icon.svg" alt="" class="brand-icon">
+        <span>BIOISLAS</span>
+      </a>
+      <div class="topbar-stats" aria-label="Tu progreso">
+        <div class="stat-pill stat-stars"><span class="stat-symbol" aria-hidden="true">★</span><strong id="star-count">0</strong><small>/ 3</small></div>
+        <div class="stat-pill stat-modules"><span class="stat-symbol" aria-hidden="true">▤</span><strong id="module-count">0</strong><small>/ 3</small></div>
+        <div class="stat-pill stat-streak"><span class="stat-symbol" aria-hidden="true">✦</span><strong id="header-streak-count">0</strong><small>días</small></div>
+        <div class="stat-progress"><div class="stat-progress-track"><span id="top-progress-fill"></span></div><small id="top-progress-label">0% completado</small></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button" id="sound-toggle" aria-label="Activar o silenciar sonidos" title="Sonidos"><span id="sound-icon" aria-hidden="true">♫</span></button>
+        <a class="icon-button" href="/settings.html" aria-label="Ajustes" title="Ajustes"><span aria-hidden="true">⚙</span></a>
+      </div>
+    </header>
+
+    <main class="map-layout">
+      <section class="map-intro" data-reveal>
+        <div class="map-intro-copy">
+          <span class="eyebrow">TU RUTA DE APRENDIZAJE</span>
+          <h1>El conocimiento <span>toma forma</span> isla por isla.</h1>
+          <p>Aprende los fundamentos, supera tres desafíos y demuestra lo que sabes en el examen final.</p>
+        </div>
+        <div class="map-intro-progress">
+          <span class="progress-emblem" aria-hidden="true">✦</span>
+          <div><strong id="map-progress-title">Tu aventura comienza aquí</strong><small id="map-progress-subtitle">Completa los módulos de la primera isla.</small></div>
+        </div>
+      </section>
+
+      <div class="map-content-grid">
+        <section class="island-map-panel" aria-label="Mapa interactivo de las cinco islas" data-reveal>
+          <div class="map-panel-heading">
+            <div><span class="eyebrow">MAPA DE EXPLORACIÓN</span><h2>Tu archipiélago</h2></div>
+            <span class="map-island-count">05 ISLAS</span>
+          </div>
+          <div class="map-sky-decoration decoration-one" aria-hidden="true" data-parallax></div>
+          <div class="map-sky-decoration decoration-two" aria-hidden="true" data-parallax></div>
+          <div class="map-route" aria-hidden="true">
+            <svg viewBox="0 0 480 1300" preserveAspectRatio="none">
+              <path class="route-shadow" d="M145 100 C360 160 360 250 260 310 S70 430 165 520 S385 650 285 740 S70 850 165 955 S360 1070 255 1215"/>
+              <path class="route-line" d="M145 100 C360 160 360 250 260 310 S70 430 165 520 S385 650 285 740 S70 850 165 955 S360 1070 255 1215"/>
+              <path class="route-dashes" d="M145 100 C360 160 360 250 260 310 S70 430 165 520 S385 650 285 740 S70 850 165 955 S360 1070 255 1215"/>
+            </svg>
+          </div>
+          <div class="island-route-list" id="island-route-list" aria-live="polite">
+            <div class="map-skeleton"><span></span><span></span><span></span></div>
+          </div>
+          <div class="map-bottom-note"><span class="note-sparkle" aria-hidden="true">✦</span> Cada isla guarda un nuevo descubrimiento.</div>
+        </section>
+
+        <aside class="map-side-panel">
+          <section class="side-progress-card" data-reveal>
+            <div class="side-card-heading"><h2>Tu progreso</h2><span aria-hidden="true">✦</span></div>
+            <div class="big-progress-number"><strong id="side-progress-percent">0%</strong><small>de la ruta completada</small></div>
+            <div class="side-progress-track"><span id="side-progress-fill"></span></div>
+            <div class="progress-breakdown">
+              <div><span class="break-icon modules-icon" aria-hidden="true">▤</span><span>Módulos</span><strong id="side-modules">0/3</strong></div>
+              <div><span class="break-icon stars-icon" aria-hidden="true">★</span><span>Estrellas</span><strong id="side-stars">0/3</strong></div>
+            </div>
+          </section>
+
+          <section class="streak-card" data-reveal aria-labelledby="streak-heading">
+            <div class="streak-card-top">
+              <div><span class="eyebrow">CONSTANCIA</span><h2 id="streak-heading">Tu racha de estudio</h2></div>
+              <span class="streak-mark" aria-hidden="true">✦</span>
+            </div>
+            <div class="streak-main"><strong id="streak-count">0</strong><span>días<br>seguidos</span></div>
+            <p id="streak-message">Inicia una actividad para encender tu primera racha.</p>
+            <div class="streak-record"><span>Mejor racha</span><strong id="streak-longest">0 días</strong></div>
+          </section>
+
+          <a class="side-link-card" href="/results.html" data-reveal><span class="side-link-icon" aria-hidden="true">▥</span><span><strong>Mi recorrido</strong><small>Consulta tus resultados</small></span><b aria-hidden="true">→</b></a>
+          <a class="side-link-card creators-link" href="/about.html" data-reveal><span class="side-link-icon" aria-hidden="true">◎</span><span><strong>Equipo creador</strong><small>Conoce a quienes hicieron BIOISLAS</small></span><b aria-hidden="true">→</b></a>
+          <div class="map-legend" data-reveal><span class="legend-item"><i class="legend-dot available"></i> Disponible</span><span class="legend-item"><i class="legend-dot completed"></i> Completada</span><span class="legend-item"><i class="legend-dot locked"></i> Bloqueada</span></div>
+        </aside>
+      </div>
+
+      <div class="learning-marquee" aria-label="Aprende, explora, practica y descubre">
+        <div class="learning-marquee-track" aria-hidden="true">
+          <span>APRENDE CON CURIOSIDAD</span><i>✳</i><span>EXPLORA CADA ISLA</span><i>✳</i><span>APRENDE JUGANDO</span><i>✳</i><span>DESCUBRE LA BIOTECNOLOGÍA</span><i>✳</i>
+          <span>APRENDE CON CURIOSIDAD</span><i>✳</i><span>EXPLORA CADA ISLA</span><i>✳</i><span>APRENDE JUGANDO</span><i>✳</i><span>DESCUBRE LA BIOTECNOLOGÍA</span><i>✳</i>
+        </div>
+      </div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <a class="bottom-nav-link active" href="/index.html"><span class="bottom-nav-icon" aria-hidden="true">⌂</span><small>Mapa</small></a>
+      <a class="bottom-nav-link" href="/results.html"><span class="bottom-nav-icon" aria-hidden="true">▥</span><small>Progreso</small></a>
+      <a class="bottom-nav-link" href="/manual.html"><span class="bottom-nav-icon" aria-hidden="true">▤</span><small>Guía</small></a>
+      <a class="bottom-nav-link" href="/settings.html"><span class="bottom-nav-icon" aria-hidden="true">⚙</span><small>Ajustes</small></a>
+    </nav>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="/js/app.js"></script>
+  <script type="module" src="/js/map.js"></script>
+</body>
+</html>

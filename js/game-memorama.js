@@ -1,3 +1,4 @@
+import './experience.js';
 import {requireGameAccess} from './game-guard.js';
 import {completeGame} from './db.js';
 import {initAudio,sounds} from './audio.js';

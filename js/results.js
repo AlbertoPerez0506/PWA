@@ -1,3 +1,4 @@
+import './experience.js';
 import {getJourney,getGameProgress,getExamAttempts} from './db.js';
 const [journey,games,exams]=await Promise.all([getJourney(),getGameProgress(),getExamAttempts()]);
 document.getElementById('history-modules').textContent=`${journey.completedModules.length}/3`;

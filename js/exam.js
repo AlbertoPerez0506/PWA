@@ -1,3 +1,4 @@
+import './experience.js';
 import {examBank} from './data.js';
 import {getJourney,saveExamAttempt,getExamAttempts} from './db.js';
 const $=id=>document.getElementById(id);const shuffle=items=>{const result=[...items];for(let i=result.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}return result;};let questions=[],answers={},current=0,startedAt=0,elapsed=0,timer=null,submitting=false;
