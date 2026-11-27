@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fffdf8">
   <meta name="description" content="BIOISLAS: aprende biotecnología y bioprocesos mediante módulos, retos interactivos y un examen final.">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" type="image/svg+xml" href="/assets/images/app-icon.svg">
-  <link rel="apple-touch-icon" href="/assets/images/app-icon-192.png">
+  <link rel="icon" type="image/png" href="/assets/icon/icon_radio.png">
+  <link rel="apple-touch-icon" href="/assets/icon/icon_redondo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
 <body class="map-body">
   <div class="splash-screen" id="splash-screen" aria-label="Cargando BIOISLAS">
     <div class="splash-mascot-wrap">
-      <img src="/assets/images/icon_redondo.png" alt="Lumi, el tucán guía de BIOISLAS" class="splash-mascot">
+      <picture><source media="(pointer: coarse)" srcset="/assets/icon/icon_redondo.png"><img src="/assets/icon/icon_radio.png" alt="Identidad visual de BIOISLAS" class="splash-mascot"></picture>
       <span class="splash-orbit splash-orbit-one" aria-hidden="true"></span>
       <span class="splash-orbit splash-orbit-two" aria-hidden="true"></span>
     </div>
@@ -33,12 +33,12 @@
     <div class="onboarding-shell">
       <div class="onboarding-visual">
         <div class="onboarding-image-frame">
-          <img src="/assets/images/icon_redondo.png" alt="Lumi, el tucán guía de BIOISLAS" class="onboarding-mascot">
+          <picture><source media="(pointer: coarse)" srcset="/assets/icon/icon_redondo.png"><img src="/assets/icon/icon_radio.png" alt="Identidad visual de BIOISLAS" class="onboarding-mascot"></picture>
           <span class="onboarding-glow" aria-hidden="true"></span>
         </div>
         <div class="mascot-speech" aria-live="polite">
-          <span class="speech-name">Lumi · tu guía</span>
-          <p id="mascot-speech">¡Hola! Me alegra que estés aquí. Vamos a explorar.</p>
+          <span class="speech-name">BIOISLAS · tu aventura</span>
+          <p id="mascot-speech">¡Hola! Prepárate para explorar, aprender y descubrir.</p>
         </div>
         <div class="onboarding-orbit orbit-a" aria-hidden="true"></div>
         <div class="onboarding-orbit orbit-b" aria-hidden="true"></div>
@@ -71,7 +71,7 @@
   <div class="app-shell is-hidden" id="app-shell">
     <header class="topbar">
       <a class="brand" href="/index.html" aria-label="BIOISLAS, mapa principal">
-        <img src="/assets/icon/icon_redondo.png" alt="" class="brand-icon">
+        <img src="/assets/icon/icon_radio.png" alt="" class="brand-icon">
         <span>BIOISLAS</span>
       </a>
       <div class="topbar-stats" aria-label="Tu progreso">
