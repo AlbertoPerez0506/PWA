@@ -1,4 +1,4 @@
-# BIOISLAS REWILD · Actualización visual 5.1.0
+# BIOISLAS REWILD · Actualización visual 5.1.1
 
 Este paquete añade el selector de apariencia Claro / Oscuro / Sistema, los iconos de marca locales y una renovación visual 3D de la página del equipo. No reconstruye la aplicación ni modifica preguntas, desbloqueos o el esquema IndexedDB.
 
@@ -62,6 +62,16 @@ La PWA debe servirse desde `http://localhost` o HTTPS. No abrirla con `file://`,
 ## Consideraciones
 
 - El repositorio público inspeccionado está en la rama `main`; este paquete no realiza commits, pushes ni cambios remotos.
-- El Service Worker ahora usa `bioislas-rewild-v5.1.0` para renovar la caché y precarga los dos iconos como recursos opcionales para que un icono ausente no bloquee la instalación del worker.
-- La sección del equipo conserva los siete nombres. Para Anett, Ronay y Ayelen se usa una descripción general porque sus funciones específicas no estaban confirmadas en el contexto de trabajo.
+- El Service Worker ahora usa `bioislas-rewild-v5.1.1` para renovar la caché y precarga los dos iconos como recursos opcionales para que un icono ausente no bloquee la instalación del worker.
+- La pantalla de carga y la bienvenida dejaron de utilizar `tucan-guide.jpg` y la identificación de Lumi; el recurso histórico se conserva en `assets/images/`, pero ya no forma parte de la precarga principal. La sección del equipo conserva los siete nombres. Para Anett, Ronay y Ayelen se usa una descripción general porque sus funciones específicas no estaban confirmadas en el contexto de trabajo.
 - No se ejecutó una prueba visual dentro de un navegador real con los archivos PNG locales, porque esos dos PNG no se adjuntaron a esta conversación. Tampoco se validó todavía una instalación/offline real en el dispositivo.
+
+
+## Integración publicada en main · 5.1.1
+
+- La rama oficial de publicación es `main`; no se requiere un merge desde otra rama.
+- `index.html` utiliza `assets/icon/icon_redondo.png` en móvil y `assets/icon/icon_radio.png` en escritorio para splash y bienvenida mediante `<picture>`.
+- El favicon y Apple Touch Icon apuntan a los recursos de marca.
+- `manifest.webmanifest` declara tamaños reales de 1024 × 1024 y 346 × 346.
+- `sw.js` incrementa la caché a `bioislas-rewild-v5.1.1` y deja de precargar la antigua imagen del tucán.
+- `about.html` emplea iconos SVG inline para las métricas y `css/theme.css` evita que el selector de texto sobrescriba sus estilos.
