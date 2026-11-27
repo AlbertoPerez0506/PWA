@@ -11,7 +11,7 @@ const onboardingSteps = [
   {
     title: 'Un archipiélago de descubrimientos',
     copy: 'Conoce los fundamentos de la biotecnología y descubre cómo los sistemas biológicos pueden transformar nuestro mundo.',
-    speech: '¡Hola! Soy Lumi. Te acompañaré durante esta pequeña introducción.',
+    speech: '¡Hola! Te acompañaré durante esta pequeña introducción a BIOISLAS.',
     benefits: ['Aprende a tu ritmo', 'Avanza isla por isla']
   },
   {
