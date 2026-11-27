@@ -1,4 +1,6 @@
-# BIOISLAS V4 — Paquete de implementación
+# BIOISLAS · Documentación de implementación base V4
+
+> **Estado de la documentación (27 de noviembre de 2026):** esta guía conserva la explicación de la implementación base BIOISLAS V4 y se mantiene como referencia histórica. La versión visual vigente es **BIOISLAS REWILD 5.1.1**. Para los cambios de iconos, pantalla de carga, temas, caché offline y estructura actualizada, consulta [README_ACTUALIZACION.md](README_ACTUALIZACION.md).
 
 Este paquete contiene los archivos completos para transformar `AlbertoPerez0506/PWA` en una PWA educativa con un recorrido visual de cinco islas, inspirado en el mapa de progreso de la captura de referencia.
 
