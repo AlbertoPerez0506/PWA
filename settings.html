@@ -1,2 +1,86 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fffdf8"><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/assets/images/app-icon.svg"><link rel="stylesheet" href="/css/styles.css"><title>Ajustes · BIOISLAS</title>  <link rel="stylesheet" href="/css/experience.css">
-</head><body><main class="page-shell"><header class="page-top"><a class="back-button" href="/index.html">←</a><div class="page-top-copy"><p>PERSONALIZA TU EXPERIENCIA</p><h1>Ajustes</h1></div></header><section class="content-panel"><div class="setting-row"><div><strong>Sonidos de juego</strong><small id="sound-status">Activados</small></div><button class="switch" id="sound-setting" role="switch" aria-checked="true" aria-label="Activar sonidos"></button></div><div class="setting-row"><div><strong>Notificaciones</strong><small id="notification-status">Desactivadas</small></div><button class="switch" id="notification-setting" role="switch" aria-checked="false" aria-label="Activar notificaciones"></button></div><div class="setting-row"><div><strong>Instalar BIOISLAS</strong><small>Añade la aplicación a tu pantalla de inicio.</small></div><button class="button button-secondary" id="install-setting">Instalar</button></div><div class="setting-row"><div><strong>Restablecer progreso</strong><small>Elimina estrellas, módulos e historial de este dispositivo.</small></div><button class="button button-danger" id="clear-setting">Borrar datos</button></div><p class="muted">BIOISLAS guarda el progreso en el almacenamiento local del dispositivo. Al borrar los datos del navegador también puedes perder este progreso.</p></section></main><script type="module" src="/js/settings.js"></script></body></html>
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fffdf8">
+  <meta name="description" content="Personaliza tu experiencia de aprendizaje en BIOISLAS.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/images/app-icon.svg">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/experience.css">
+  <title>Ajustes · BIOISLAS</title>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-top">
+      <a class="back-button" href="/index.html" aria-label="Volver al mapa">←</a>
+      <div class="page-top-copy">
+        <p>PERSONALIZA TU EXPERIENCIA</p>
+        <h1>Ajustes</h1>
+      </div>
+    </header>
+
+    <section class="content-panel" aria-label="Preferencias de BIOISLAS">
+      <div class="setting-row theme-setting-row">
+        <div class="theme-setting-heading">
+          <div>
+            <strong>Apariencia</strong>
+            <small id="theme-status" aria-live="polite">Sistema · se adapta a tu dispositivo</small>
+          </div>
+        </div>
+        <div class="theme-options" role="group" aria-label="Seleccionar apariencia">
+          <button class="theme-option" type="button" data-theme-option="light" aria-pressed="false">
+            <span class="theme-option-icon" aria-hidden="true">☀</span>
+            <span>Claro</span>
+          </button>
+          <button class="theme-option" type="button" data-theme-option="dark" aria-pressed="false">
+            <span class="theme-option-icon" aria-hidden="true">☾</span>
+            <span>Oscuro</span>
+          </button>
+          <button class="theme-option" type="button" data-theme-option="system" aria-pressed="false">
+            <span class="theme-option-icon" aria-hidden="true">▣</span>
+            <span>Sistema</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <strong>Sonidos de juego</strong>
+          <small id="sound-status">Activados</small>
+        </div>
+        <button class="switch" id="sound-setting" role="switch" aria-checked="true" aria-label="Activar sonidos"></button>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <strong>Notificaciones</strong>
+          <small id="notification-status">Desactivadas</small>
+        </div>
+        <button class="switch" id="notification-setting" role="switch" aria-checked="false" aria-label="Activar notificaciones"></button>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <strong>Instalar BIOISLAS</strong>
+          <small>Añade la aplicación a tu pantalla de inicio.</small>
+        </div>
+        <button class="button button-secondary" id="install-setting" type="button">Instalar</button>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <strong>Restablecer progreso</strong>
+          <small>Elimina estrellas, módulos e historial de este dispositivo.</small>
+        </div>
+        <button class="button button-danger" id="clear-setting" type="button">Borrar datos</button>
+      </div>
+
+      <p class="muted">BIOISLAS guarda el progreso en el almacenamiento local del dispositivo. La apariencia se conserva como una preferencia independiente. Al borrar los datos del navegador también puedes perder el progreso.</p>
+    </section>
+  </main>
+
+  <script type="module" src="/js/settings.js"></script>
+</body>
+</html>

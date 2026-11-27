@@ -15,68 +15,127 @@
   <main class="page-shell about-shell">
     <header class="page-top">
       <a class="back-button" href="/index.html" aria-label="Volver al mapa">←</a>
-      <div class="page-top-copy"><p>DETRÁS DEL ARCHIPIÉLAGO</p><h1>El equipo creador</h1></div>
+      <div class="page-top-copy">
+        <p>DETRÁS DEL ARCHIPIÉLAGO</p>
+        <h1>El equipo creador</h1>
+      </div>
     </header>
 
-    <section class="about-hero" data-reveal>
+    <section class="about-hero" data-reveal data-parallax>
       <div class="about-hero-copy">
-        <span class="eyebrow">BIOISLAS · PROYECTO EDUCATIVO</span>
-        <h1>Una idea que creció en equipo.</h1>
-        <p>BIOISLAS reúne diseño, creatividad, contenido y desarrollo para convertir el aprendizaje de la biotecnología en una experiencia interactiva.</p>
+        <span class="about-hero-badge">BIOISLAS · Proyecto educativo</span>
+        <h1>La ciencia se descubre mejor cuando construimos en equipo.</h1>
+        <p>BIOISLAS transforma el aprendizaje de la biotecnología y los bioprocesos en un recorrido interactivo. Detrás de cada isla hay ideas, diseño, contenido y desarrollo que se unen para crear una experiencia educativa.</p>
       </div>
-      <div class="about-symbol" aria-hidden="true"><span>BIO</span><i>✳</i><b>ISLAS</b><small>EXPLORA · APRENDE · DESCUBRE</small></div>
+      <div class="about-symbol" aria-hidden="true">
+        <span>BIO</span>
+        <i>✳</i>
+        <b>ISLAS</b>
+        <small>EXPLORA · APRENDE · DESCUBRE</small>
+      </div>
+    </section>
+
+    <section class="about-metrics" aria-label="Datos del proyecto" data-reveal>
+      <div class="about-metric">
+        <span class="about-metric-icon" aria-hidden="true">✦</span>
+        <div><strong>07</strong><span>Integrantes</span></div>
+      </div>
+      <div class="about-metric">
+        <span class="about-metric-icon" aria-hidden="true">⌘</span>
+        <div><strong>05</strong><span>Islas educativas</span></div>
+      </div>
+      <div class="about-metric">
+        <span class="about-metric-icon" aria-hidden="true">◎</span>
+        <div><strong>01</strong><span>Experiencia compartida</span></div>
+      </div>
     </section>
 
     <section class="team-section" aria-labelledby="team-title">
-      <div class="section-intro" data-reveal><span class="eyebrow">LAS PERSONAS DETRÁS DEL PROYECTO</span><h2 id="team-title">Conoce a nuestro equipo</h2><p>Un proyecto colaborativo donde cada área aporta a la experiencia de aprendizaje.</p></div>
+      <div class="section-intro" data-reveal>
+        <span class="eyebrow">LAS PERSONAS DETRÁS DEL PROYECTO</span>
+        <h2 id="team-title">Conoce a nuestro equipo</h2>
+        <p>Cada integrante forma parte de la construcción de BIOISLAS desde distintas perspectivas y aportaciones.</p>
+      </div>
+
       <div class="team-grid">
         <article class="team-card team-lead" data-reveal>
-          <span class="team-index">01 · DESARROLLO</span><div class="team-avatar avatar-green">IP</div>
-          <h3>Iván Alberto Pérez Ramírez</h3><p class="team-role">Programación y desarrollo PWA</p>
-          <p>Arquitectura frontend, implementación de funcionalidades, lógica de interacción, persistencia con IndexedDB y experiencia multiplataforma.</p>
+          <span class="team-index">01 · DESARROLLO</span>
+          <div class="team-avatar avatar-green">IP</div>
+          <h3>Iván Alberto Pérez Ramírez</h3>
+          <p class="team-role">Programación y desarrollo PWA</p>
+          <p>Responsable de la programación y el desarrollo de BIOISLAS: arquitectura frontend, funcionalidades interactivas, persistencia local con IndexedDB y experiencia multiplataforma.</p>
+          <div class="team-stack" aria-label="Tecnologías y áreas de trabajo">
+            <span>HTML · CSS · JavaScript</span>
+            <span>Progressive Web App</span>
+            <span>IndexedDB</span>
+            <span>Experiencia offline</span>
+          </div>
         </article>
+
         <article class="team-card" data-reveal>
-          <span class="team-index">02 · UX / UI</span><div class="team-avatar avatar-blue">AP</div>
-          <h3>Ixchel Ariadna Díaz Piña</h3><p class="team-role">Diseño UX/UI</p>
-          <p>Apoyo en la experiencia de usuario, estructura visual, jerarquía de información y claridad de navegación.</p>
+          <span class="team-index">02 · UX / UI</span>
+          <div class="team-avatar avatar-blue">IX</div>
+          <h3>Ixchel Ariadna Díaz Piña</h3>
+          <p class="team-role">Diseño UX/UI</p>
+          <p>Aportación al diseño de la experiencia de usuario y a la organización visual de la aplicación.</p>
         </article>
+
         <article class="team-card" data-reveal>
-          <span class="team-index">03 · COORDINACIÓN</span><div class="team-avatar avatar-lilac">AZ</div>
-          <h3>Anett Michelle Zacarías Sandoval</h3><p class="team-role">Organización y pruebas de experiencia</p>
-          <p>Apoyo en la organización de actividades, revisión de recorridos y pruebas de uso para detectar oportunidades de mejora.</p>
+          <span class="team-index">03 · EQUIPO</span>
+          <div class="team-avatar avatar-lilac">AZ</div>
+          <h3>Anett Michelle Zacarías Sandoval</h3>
+          <p class="team-role">Integrante del equipo BIOISLAS</p>
+          <p>Participación en el trabajo colaborativo para desarrollar la propuesta educativa.</p>
         </article>
+
         <article class="team-card" data-reveal>
-          <span class="team-index">04 · UX / UI</span><div class="team-avatar avatar-yellow">VS</div>
-          <h3>Vanessa Paola García Rosario</h3><p class="team-role">Diseño UX/UI</p>
-          <p>Apoyo en la interfaz, consistencia visual, organización de componentes y enfoque en las necesidades del estudiante.</p>
+          <span class="team-index">04 · UX / UI</span>
+          <div class="team-avatar avatar-yellow">VG</div>
+          <h3>Vanessa Paola García Rosario</h3>
+          <p class="team-role">Diseño UX/UI</p>
+          <p>Aportación al diseño de interfaz y a la experiencia visual de BIOISLAS.</p>
         </article>
+
         <article class="team-card" data-reveal>
-          <span class="team-index">05 · CONCEPTO</span><div class="team-avatar avatar-coral">CJ</div>
-          <h3>Cristell Guadalupe Jiménez Jiménez</h3><p class="team-role">Conceptualización y creatividad</p>
-          <p>Participación en la generación de ideas, enfoque de las dinámicas y propuesta creativa de la experiencia educativa.</p>
+          <span class="team-index">05 · CONCEPTO</span>
+          <div class="team-avatar avatar-coral">CJ</div>
+          <h3>Cristell Guadalupe Jiménez Jiménez</h3>
+          <p class="team-role">Conceptualización y creatividad</p>
+          <p>Participación en la generación de ideas, conceptualización y propuesta creativa de la experiencia educativa.</p>
         </article>
+
         <article class="team-card" data-reveal>
-          <span class="team-index">06 · CONTENIDO</span><div class="team-avatar avatar-lilac">HZ</div>
-          <h3>Ronay Arturo Hernández García</h3><p class="team-role">Investigación y documentación</p>
-          <p>Apoyo en la organización de información, documentación temática y estructuración de contenidos para el recorrido.</p>
+          <span class="team-index">06 · EQUIPO</span>
+          <div class="team-avatar avatar-lilac">RH</div>
+          <h3>Ronay Arturo Hernández García</h3>
+          <p class="team-role">Integrante del equipo BIOISLAS</p>
+          <p>Participación en el trabajo colaborativo y en la construcción del proyecto.</p>
         </article>
+
         <article class="team-card" data-reveal>
-          <span class="team-index">07 · APRENDIZAJE</span><div class="team-avatar avatar-mint">PM</div>
-          <h3>Ayelen Lakeisha Pérez Martínez</h3><p class="team-role">Apoyo didáctico</p>
-          <p>Apoyo en la secuencia de aprendizaje, claridad de las instrucciones y revisión de las actividades educativas.</p>
+          <span class="team-index">07 · EQUIPO</span>
+          <div class="team-avatar avatar-mint">AP</div>
+          <h3>Ayelen Lakeisha Pérez Martínez</h3>
+          <p class="team-role">Integrante del equipo BIOISLAS</p>
+          <p>Participación en el trabajo colaborativo y en el desarrollo de la propuesta educativa.</p>
         </article>
+
         <article class="team-card team-note" data-reveal>
-          <span class="team-index">TRABAJO COLABORATIVO</span><div class="team-note-mark" aria-hidden="true">✳</div>
+          <span class="team-index">TRABAJO COLABORATIVO</span>
+          <div class="team-note-mark" aria-hidden="true">✳</div>
           <h3>Una experiencia construida entre todos.</h3>
-          <p>Desde la idea inicial hasta cada interacción, BIOISLAS representa el trabajo conjunto de un equipo con distintas perspectivas.</p>
+          <p>Desde la idea inicial hasta cada interacción, BIOISLAS representa el esfuerzo compartido de un equipo con distintas perspectivas.</p>
         </article>
       </div>
     </section>
 
     <footer class="about-footer" data-reveal>
-      <span>BIOISLAS</span><p>Explora. Aprende. Descubre.</p><a class="button button-primary" href="/index.html">Volver al archipiélago <span aria-hidden="true">→</span></a>
+      <span>BIOISLAS</span>
+      <p>Explora. Aprende. Descubre.</p>
+      <a class="button button-primary" href="/index.html">Volver al archipiélago <span aria-hidden="true">→</span></a>
     </footer>
   </main>
+
   <script type="module" src="/js/experience.js"></script>
 </body>
 </html>

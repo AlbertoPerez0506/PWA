@@ -1,0 +1,11 @@
+ICONOS DE BIOISLAS
+
+Copia aquí los dos PNG que ya tienes en tu equipo:
+- icon_radio.png   (icono cuadrado para escritorio / favicon principal)
+- icon_redondo.png (icono circular para dispositivos móviles y Apple Touch Icon)
+
+Rutas finales esperadas:
+assets/icon/icon_radio.png
+assets/icon/icon_redondo.png
+
+Recomendación: conserva un archivo PNG cuadrado de alta resolución (idealmente 512 × 512 px) para cada diseño. El manifest declara los dos PNG nuevos como 512 × 512; comprueba sus dimensiones reales y ajusta el campo `sizes` si no coinciden. Los iconos anteriores siguen presentes como respaldo para 192 × 192.

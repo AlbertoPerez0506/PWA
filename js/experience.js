@@ -1,3 +1,4 @@
+import './theme.js';
 import { getState, setState } from './db.js';
 
 const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -20,23 +21,31 @@ function yesterdayKey() {
 let streakRequest = null;
 async function recordStudyActivity() {
   if (streakRequest) return streakRequest;
+
   streakRequest = (async () => {
     const today = dateKey();
     const previous = await getState('learningStreak', { current: 0, longest: 0, lastDate: null });
     if (previous.lastDate === today) return previous;
-    const nextCount = previous.lastDate === yesterdayKey() ? Number(previous.current || 0) + 1 : 1;
+
+    const nextCount = previous.lastDate === yesterdayKey()
+      ? Number(previous.current || 0) + 1
+      : 1;
     const next = {
       current: nextCount,
       longest: Math.max(Number(previous.longest || 0), nextCount),
       lastDate: today,
       updatedAt: new Date().toISOString()
     };
+
     await setState('learningStreak', next);
     return next;
   })().catch(error => {
     console.warn('No fue posible actualizar la racha de estudio:', error);
     return null;
-  }).finally(() => { streakRequest = null; });
+  }).finally(() => {
+    streakRequest = null;
+  });
+
   return streakRequest;
 }
 
@@ -50,11 +59,17 @@ document.addEventListener('click', event => {
 
 function observeReveals(root = document) {
   if (reducedMotion || !('IntersectionObserver' in window)) {
-    root.querySelectorAll?.('[data-reveal], .module-card, .history-row, .setting-row, .team-card, .content-panel, .page-top').forEach(element => element.classList.add('is-visible'));
+    root.querySelectorAll?.('[data-reveal], .module-card, .history-row, .setting-row, .team-card, .content-panel, .page-top')
+      .forEach(element => element.classList.add('is-visible'));
     return;
   }
+
   const selector = '[data-reveal], .island-node, .module-card, .history-row, .setting-row, .team-card, .content-panel, .page-top';
-  const matches = [...(root.matches?.(selector) ? [root] : []), ...(root.querySelectorAll ? [...root.querySelectorAll(selector)] : [])];
+  const matches = [
+    ...(root.matches?.(selector) ? [root] : []),
+    ...(root.querySelectorAll ? [...root.querySelectorAll(selector)] : [])
+  ];
+
   matches.forEach((element, index) => {
     if (element.dataset.revealReady || element.closest('[hidden]')) return;
     element.dataset.revealReady = 'true';
@@ -86,12 +101,16 @@ function initParallax() {
   if (reducedMotion) return;
   const elements = [...document.querySelectorAll('[data-parallax]')];
   if (!elements.length) return;
+
   let scheduled = false;
   const update = () => {
     const y = Math.min(window.scrollY || 0, 900);
-    elements.forEach((element, index) => element.style.setProperty('--parallax-offset', `${y * (index % 2 ? 0.035 : -0.025)}px`));
+    elements.forEach((element, index) => {
+      element.style.setProperty('--parallax-offset', `${y * (index % 2 ? 0.035 : -0.025)}px`);
+    });
     scheduled = false;
   };
+
   window.addEventListener('scroll', () => {
     if (scheduled) return;
     scheduled = true;
